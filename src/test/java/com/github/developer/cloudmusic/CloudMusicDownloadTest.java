@@ -11,6 +11,7 @@ import java.util.Map;
  * @Version 1.0
  */
 public class CloudMusicDownloadTest {
+    //网易云歌曲下载地址
     public static final String URL = "http://music.163.com/song/media/outer/url?id=";
     public static void main(String[] args) {
         CloudMusicParser cloudMusicParser = new CloudMusicParser();
