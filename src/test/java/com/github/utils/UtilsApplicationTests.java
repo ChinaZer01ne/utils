@@ -21,9 +21,9 @@ public class UtilsApplicationTests {
     @Test
     public void contextLoads() {
         // 线程池测试
-        executor.execute(() -> System.out.println("this is runable thread in thread pool."));
+        executor.execute(() -> System.out.println("this is runable " +Thread.currentThread().getName() + " thread in thread pool."));
         executor.submit(() -> {
-            System.out.println("this is callable thread in thread pool.");
+            System.out.println("this is callable " +Thread.currentThread().getName() + " thread in thread pool.");
             return null;
         });
     }
