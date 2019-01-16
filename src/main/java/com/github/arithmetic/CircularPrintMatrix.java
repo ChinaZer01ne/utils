@@ -12,10 +12,11 @@ import java.util.Arrays;
 public class CircularPrintMatrix {
 
     public static void main(String[] args) {
-        int[][] matrix = createMatrix(10, 12);
+        int[][] matrix = createMatrix(12, 1);
         normalPrintMatrix(matrix);
         System.out.println("==============================");
-        circularPrintMatrix(matrix,10,12);
+        //circularPrintMatrix(matrix,10,12);
+        circularPrintMatrix(matrix,0,0,11,0);
         System.out.println("==============================");
     }
     //创建矩阵
@@ -36,7 +37,7 @@ public class CircularPrintMatrix {
         }
     }
     //转圈打印1
-    private static void circularPrintMatrix(int[][] matrix,int rows, int columns){
+    private static void circularPrintMatrix2(int[][] matrix,int rows, int columns){
         if (rows == 1){
             System.out.println(Arrays.toString(matrix[0]));
         }else if (columns == 1){
@@ -71,7 +72,46 @@ public class CircularPrintMatrix {
         }
 
     }
-    private static void circularPrintMatrix2(int[][] matrix,int LR, int LC,int RR, int RC){
+    //转圈打印2
+    private static void circularPrintMatrix(int[][] matrix,int tR, int tC,int dR, int dC){
 
+        if (tR == dR){
+            for (int i = 0; i <= dC; i++) {
+                System.out.println(matrix[tR][i]);
+            }
+        }else if (tC == dC){
+            for (int i = 0; i <= dR; i++) {
+                System.out.println(matrix[i][tC]);
+            }
+        }else {
+            while (tR <= dR && tC <= dC){
+                for (int i = tC; i <= dC; i++) {
+                    System.out.print(matrix[tR][i]);
+                    System.out.print("\t");
+                }
+                System.out.println();
+                for (int j = tR + 1; j <= dR; j++) {
+                    System.out.print(matrix[j][dC]);
+                    System.out.print("\t");
+                }
+                System.out.println();
+                for (int k = dC - 1; k >= tC; k--) {
+                    System.out.print(matrix[dR][k]);
+                    System.out.print("\t");
+                }
+                System.out.println();
+                for (int m = dR; m > tR; m--) {
+                    System.out.print(matrix[m][tC]);
+                    System.out.print("\t");
+                }
+                System.out.println();
+                tR++;
+                tC++;
+                dR--;
+                dC--;
+            }
+
+        }
     }
+
 }
