@@ -37,10 +37,52 @@ public class FindDescendantNode {
         node5.parent = node2;
         node3.left = node6;
         node6.parent = node3;
+        LDR(node1);
+        System.out.println();
+        System.out.println("=======================");
+        System.out.println(findDescendantNode(node1).data);
+        System.out.println(findDescendantNode(node4).data);
+        System.out.println(findDescendantNode(node2).data);
+        System.out.println(findDescendantNode(node5).data);
+        System.out.println(findDescendantNode(node6).data);
+        System.out.println(findDescendantNode(node3));
+    }
+    //如果当前节点有右子树，那么下一个打印的是它右子树最左的节点；
+    // 如果没有右子树，那么下一个打印的是，先找当前节点的父节点，如果这个节点不是它的父节点的左孩子，就继续往上找
+    private static TreeNode findDescendantNode(TreeNode node){
+
+        if (node == null){
+            return node;
+        }
+
+        if (node.right != null){
+            return getRightTreeMostLeft(node.right);
+        }else {
+            TreeNode parentNode = node.parent;
+            while (parentNode!= null && parentNode.left != node){
+                node = parentNode;
+                parentNode = node.parent;
+            }
+            return parentNode;
+        }
     }
 
-    private static void findDescendantNode(){
+    private static TreeNode getRightTreeMostLeft(TreeNode node){
+        if (node.left == null){
+            return node;
+        }else {
+            while (node.left != null){
+                node = node.left;
+            }
+            return node;
+        }
+    }
 
-
+    private static void LDR(TreeNode<Integer> head){
+        if (head != null){
+            LDR(head.left);
+            System.out.print(head.data + "\t");
+            LDR(head.right);
+        }
     }
 }
