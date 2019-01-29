@@ -20,6 +20,7 @@ public class UtilsApplication {
 
     @Bean
     public ResourceHttpRequestHandler resourceHttpRequestHandler(){
+        //spring默认不支持post转发
         resourceHttpRequestHandler.setSupportedMethods("POST","GET","HEAD");
         return resourceHttpRequestHandler;
     }
@@ -28,6 +29,7 @@ public class UtilsApplication {
     public SimpleUrlHandlerMapping simpleUrlHandlerMapping(){
         SimpleUrlHandlerMapping simpleUrlHandlerMapping = new SimpleUrlHandlerMapping();
         simpleUrlHandlerMapping.setDefaultHandler(resourceHttpRequestHandler());
+        //设置优先级
         simpleUrlHandlerMapping.setOrder(1);
 
         return simpleUrlHandlerMapping;
