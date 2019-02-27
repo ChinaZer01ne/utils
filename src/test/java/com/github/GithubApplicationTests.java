@@ -1,20 +1,15 @@
-package com.github.utils;
+package com.github;
 
-import com.github.utils.thread.ThreadPoolConfig;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class UtilsApplicationTests {
-
+/**
+ * @Author: Zer01ne
+ * @Date: 2019/2/27 14:44
+ * @Version 1.0
+ */
+public class GithubApplicationTests {
     @Autowired
     private ThreadPoolTaskExecutor executor;
 
@@ -27,5 +22,4 @@ public class UtilsApplicationTests {
             return null;
         });
     }
-
 }

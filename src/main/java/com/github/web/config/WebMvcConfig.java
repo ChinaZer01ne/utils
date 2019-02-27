@@ -1,25 +1,18 @@
-package com.github.utils.config;
+package com.github.web.config;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.ApplicationContext;
+import com.github.web.interceptor.PersonInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.handler.AbstractHandlerMethodMapping;
-import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author: Zer01ne
@@ -28,6 +21,13 @@ import java.util.Objects;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new PersonInterceptor()).addPathPatterns("/**");
+    }
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 

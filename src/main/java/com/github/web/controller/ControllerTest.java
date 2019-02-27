@@ -1,11 +1,14 @@
-package com.github.utils.web;
+package com.github.web.controller;
 
 
-import org.springframework.format.annotation.DateTimeFormat;
+
+import com.github.solr.SolrSearch;
+import com.github.web.entity.Person;
+import com.github.web.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -15,6 +18,7 @@ import java.util.Date;
  */
 @Controller
 public class ControllerTest {
+
 
     @PostMapping("/hello")
     @ResponseBody
@@ -32,11 +36,11 @@ public class ControllerTest {
 
     @ResponseBody
     @RequestMapping("/Serializable")
-    public Person serializable(String name,Date birthday){
+    public Person serializable(String name, Date birthday){
         Person person = new Person();
         person.setName(name);
         person.setBirthday(birthday);
-        System.err.println(System.currentTimeMillis());
+        System.out.println("当前时间" + new Date());
         return person;
     }
 
@@ -46,4 +50,31 @@ public class ControllerTest {
 
         return person;
     }
+
+
+    @Autowired
+    private PersonService personService;
+
+    @ResponseBody
+    @GetMapping("/person")
+    public Person get(Integer id){
+
+        return personService.findById(id);
+    }
+
+    @ResponseBody
+    @PostMapping("/add")
+    public String add(@RequestBody Person person){
+        personService.add(person);
+        return "OK";
+    }
+
+    @Autowired
+    private SolrSearch solrSearch;
+    @GetMapping("/add")
+    public String searchTest(){
+        solrSearch.add();
+        return "OK";
+    }
+
 }
