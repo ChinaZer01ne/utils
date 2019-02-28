@@ -2,7 +2,6 @@ package com.github.arithmetic;
 
 import java.util.Arrays;
 
-import static sun.misc.Version.print;
 
 /**
  * 之字形打印矩阵(我数组坐标经常想不明白。。。)
