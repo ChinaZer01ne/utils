@@ -18,6 +18,7 @@ public class JVMClassloader {
         Member member = new Member();
         System.out.println(str.getClass().getClassLoader());
         System.out.println(member.getClass().getClassLoader());
+        //jdk1.8之前是ext类加载期，jdk1.9之后是platform类加载器
         System.out.println(member.getClass().getClassLoader().getParent());
         System.out.println(member.getClass().getClassLoader().getParent().getParent());
     }
