@@ -31,7 +31,7 @@ public class ControllerTest {
     public String redirect(){
         System.out.println("run...");
 
-        return "test";
+        return "test2";
     }
 
     @ResponseBody
