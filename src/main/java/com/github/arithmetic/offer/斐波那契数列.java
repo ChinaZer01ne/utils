@@ -35,19 +35,27 @@ public class 斐波那契数列 {
 
     }
 
+    private int[] cache = new int[39];
     /**
-     *  递归内部缓存 TODO
+     *  递归内部缓存
      */
     private int fibonacci2(int n) {
         if (n == 0){
+            cache[0] = 0;
             return 0;
         }
 
         if (n == 1){
+            cache[1] = 1;
             return 1;
         }
-
-        return fibonacci(n - 1) + fibonacci(n - 2);
+        if (cache[n - 1] == 0){
+            cache[n - 1] = fibonacci(n - 1);
+        }
+        if (cache[n - 2] == 0){
+            cache[n - 2] = fibonacci(n - 2);
+        }
+        return cache[n - 1] + cache[n - 2];
 
     }
 
