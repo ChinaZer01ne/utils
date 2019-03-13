@@ -19,7 +19,7 @@ package com.github.arithmetic.offer;
  * @author Zer01ne
  * @since 2019/3/12 20:49
  */
-public class First {
+public class 二维数组中的查找 {
 
     public static void main(String[] args) {
         int [][] array = new int[][]{{1,2,8,9},{2,4,9,12},{4,7,10,13},{6,8,11,15}};

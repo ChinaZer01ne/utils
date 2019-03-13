@@ -14,7 +14,7 @@ package com.github.arithmetic.offer;
  * @author Zer01ne
  * @since 2019/3/12 21:25
  */
-public class Second {
+public class 替换空格 {
 
     public static void main(String[] args) {
         StringBuffer stringBuffer = new StringBuffer("hello world");

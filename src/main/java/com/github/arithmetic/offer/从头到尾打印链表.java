@@ -19,7 +19,7 @@ import java.util.Stack;
  * @author Zer01ne
  * @since 2019/3/12 21:48
  */
-public class Thrid {
+public class 从头到尾打印链表 {
 
     public static void main(String[] args) {
 
