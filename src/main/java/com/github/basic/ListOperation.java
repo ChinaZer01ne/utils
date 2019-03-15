@@ -1,5 +1,9 @@
 package com.github.basic;
 
+
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +14,10 @@ import java.util.List;
  */
 public class ListOperation {
     public static void main(String[] args) {
+        int[] array = new int[5];
+        System.out.println(array[0]);
         List<Integer> list = new ArrayList();
+
         //测试异常类型
         //System.out.println(list.get(0));
         list.add(1);
