@@ -2,8 +2,6 @@ package com.github.basic;
 
 
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,32 @@ import java.util.List;
  */
 public class ListOperation {
     public static void main(String[] args) {
+        //test();
+        test2();
+    }
+
+    private static void test2(){
+        List<Integer> myList = new ArrayList<>();
+        myList.add(1);
+        myList.add(3);
+        myList.add(2);
+        List<Integer> newList = new ArrayList<>();
+        newList.add(1);
+        newList.add(2);
+        newList.add(5);
+
+        myList.retainAll(newList);
+        List<Integer>  list = new ArrayList<>(myList);
+        newList.removeAll(myList);
+        list.addAll(newList);
+
+        for (Object o:
+             list) {
+            Integer i = (Integer) o;
+            System.out.println(i);
+        }
+    }
+    private static void test() {
         int[] array = new int[5];
         System.out.println(array[0]);
         List<Integer> list = new ArrayList();
