@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: Zer01ne
- * @Date: 2019/1/11 10:59
- * @Version 1.0
+ * @author Zer01ne
+ * @date  2019/1/11 10:59
+ * @version  1.0
  */
 public class ListOperation {
     public static void main(String[] args) {

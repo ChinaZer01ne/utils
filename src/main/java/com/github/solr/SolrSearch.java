@@ -18,9 +18,9 @@ import java.util.Date;
 
 /**
  * solr全文检索
- * @Author: Zer01ne
- * @Date: 2019/2/22 10:11
- * @Version 1.0
+ * @author Zer01ne
+ * @date 2019/2/22 10:11
+ * @version  1.0
  */
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(classes = {GithubApplication.class})
