@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 /**
- * @Author: Zer01ne
- * @Date: 2019/1/15 16:20
- * @Version 1.0
+ * @author Zer01ne
+ * @date 2019/1/15 16:20
+ * @version 1.0
  */
 @Controller
 public class ControllerTest {
