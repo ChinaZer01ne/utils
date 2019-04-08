@@ -14,9 +14,14 @@ public class Student {
         this.name = name;
         this.score = score;
     }
+    public Student(){}
 
     public static int compareStudent(Student student1, Student student2){
         return student1.getScore() - student2.getScore();
+    }
+
+    public int compareStudent2(Student student1){
+        return student1.getScore() - this.getScore();
     }
 
     public String getName() {

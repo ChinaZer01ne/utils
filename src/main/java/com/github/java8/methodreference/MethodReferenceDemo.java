@@ -2,6 +2,7 @@ package com.github.java8.methodreference;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author Zer01ne
@@ -46,6 +47,15 @@ public class MethodReferenceDemo {
 
         System.out.println("===========================");
 
+        students.sort(Student::compareStudent2);
+        students.forEach(s -> System.out.println(s.getScore()));
 
+        System.out.println("===========================");
+
+        getStudent(Student::new);
+    }
+
+    public static Student getStudent(Supplier<Student> supplier){
+        return supplier.get();
     }
 }
