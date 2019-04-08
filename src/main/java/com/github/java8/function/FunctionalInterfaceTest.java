@@ -1,10 +1,10 @@
-package com.github.java8;
+package com.github.java8.function;
 
 import java.util.Arrays;
 import java.util.List;
 
 @FunctionalInterface
-interface Function{
+interface FunctionTest{
 
     void test();
 
@@ -24,7 +24,7 @@ interface Function{
 
 public class FunctionalInterfaceTest {
 
-    void testFunction(Function function){
+    void testFunction(FunctionTest function){
         System.out.println(1);
         function.test();
         System.out.println(2);
@@ -35,7 +35,7 @@ public class FunctionalInterfaceTest {
             System.out.println("peach");
         });
 
-        Function function = () -> {
+        FunctionTest function = () -> {
             System.out.println("还能这么玩？ 卧槽。。");
         };
 
