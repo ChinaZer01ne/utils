@@ -20,4 +20,7 @@ class MyParent2{
     static {
         System.out.println("MyParent2 static code");
     }
+    {
+        System.out.println("MyParent2  code");
+    }
 }
