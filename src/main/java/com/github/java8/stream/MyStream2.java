@@ -1,9 +1,7 @@
 package com.github.java8.stream;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -28,11 +26,15 @@ public class MyStream2 {
             theList.add(ele);
             System.out.println("travel " + theList);
         }, (theList1,theList2) ->{
-            System.out.println("merge thisList1 " + theList1);
-            System.out.println("merge thisList1 " +theList2);
-            theList1.addAll(theList2);
+            //System.out.println("merge thisList1 " + theList1);
+            //System.out.println("merge thisList1 " +theList2);
+            //theList1.addAll(theList2);
         });
         //List<String> stringList = stream.collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         System.out.println(stringList);
+
+        Stream<String> stringStream = Stream.of("hello","world","peach");
+        String concat = stringStream.collect(StringBuilder::new, StringBuilder::append,(s1,s2)->{}).toString();
+        System.out.println(concat);
     }
 }

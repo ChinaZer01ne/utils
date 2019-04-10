@@ -48,12 +48,7 @@ public class MinTreeDepth {
         return 0;
     }
 
-    /**
-     * 思路：层级遍历
-     */
-    public int minDepth3(TreeNode root) {
-        return 0;
-    }
+
 
     public class TreeNode {
         int val;

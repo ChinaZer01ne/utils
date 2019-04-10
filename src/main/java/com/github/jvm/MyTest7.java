@@ -16,6 +16,12 @@ public class MyTest7 {
 
         ClassLoader loader = ClassLoader.getSystemClassLoader();
         System.out.println(loader.loadClass("com.github.jvm.B"));
+
+        String[] strs = new String[3];
+        System.out.println(strs.getClass().getClassLoader());
+
+        B[] bs = new B[3];
+        System.out.println(bs.getClass().getClassLoader());
     }
 }
 
