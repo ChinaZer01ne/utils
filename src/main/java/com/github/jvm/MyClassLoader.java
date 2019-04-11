@@ -8,6 +8,7 @@ import java.io.InputStream;
 public class MyClassLoader extends ClassLoader {
 
     private String classLoaderName;
+    private String path;
     private final String extName = ".class";
 
     protected MyClassLoader(String classLoaderName) {
@@ -22,9 +23,12 @@ public class MyClassLoader extends ClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
+        //如果父类加载器加载了类，那么这些是不会输出的
+        System.out.println("findClass invoke " + name);
+        System.out.println("class loader name " + classLoaderName);
         byte[] bytes = loadClassData(name);
 
-        return this.defineClass("custom",bytes,0,bytes.length);
+        return this.defineClass(null,bytes,0,bytes.length);
     }
 
     private byte[] loadClassData(String name){
@@ -32,9 +36,10 @@ public class MyClassLoader extends ClassLoader {
         InputStream in = null;
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         byte[] data = null;
+
+        name = name.replace(".","\\");
         try {
-            String loadClassName = name.replaceAll("/", ".") + extName;
-            in = new FileInputStream(new File(loadClassName));
+            in = new FileInputStream(new File(this.path + name + extName));
 
             int ch = 0;
             while ((ch = in.read()) != -1){
@@ -65,12 +70,38 @@ public class MyClassLoader extends ClassLoader {
     }
 
     public static void test(ClassLoader classLoader) throws Exception{
+
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public static void main(String[] args) throws Exception {
+        //如果两个类加载器需要自己加载类，并且没有层级关系，那么每个类加载器会在自己的命名空间中加载一次
+        MyClassLoader classLoader = new MyClassLoader("load1");
+        classLoader.setPath("C:\\Users\\Ninee\\Desktop\\");
         Class<?> aClass = classLoader.loadClass("com.github.jvm.MyTest");
+        System.out.println(aClass.hashCode());
         Object o = aClass.getDeclaredConstructor().newInstance();
         System.out.println(o);
-    }
-    public static void main(String[] args) throws Exception {
-        MyClassLoader classLoader = new MyClassLoader("load1");
-        test(classLoader);
+        System.out.println(o.getClass().getClassLoader());
+
+        //类的卸载
+        classLoader = null;
+        aClass = null;
+        o = null;
+        System.gc();
+        Thread.sleep(100000);
+
+        MyClassLoader classLoader2 = new MyClassLoader(classLoader,"load2");
+        classLoader2.setPath("C:\\Users\\Ninee\\Desktop\\");
+        Class<?> aClass2 = classLoader2.loadClass("com.github.jvm.MyTest");
+        System.out.println(aClass2.hashCode());
+        Object o2 = aClass2.getDeclaredConstructor().newInstance();
+        System.out.println(o2);
+        System.out.println(o2.getClass().getClassLoader());
+
+
     }
 }
