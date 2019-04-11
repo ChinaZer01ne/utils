@@ -61,13 +61,6 @@ public class MyClassLoader extends ClassLoader {
         return data;
     }
 
-    @Override
-    public String toString() {
-        return "MyClassLoader{" +
-                "classLoaderName='" + classLoaderName + '\'' +
-                ", extName='" + extName + '\'' +
-                '}';
-    }
 
     public static void test(ClassLoader classLoader) throws Exception{
 
