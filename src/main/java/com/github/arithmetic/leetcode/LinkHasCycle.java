@@ -28,7 +28,7 @@ public class LinkHasCycle {
             ListNode slow = head;
             ListNode fast = head;
 
-            while (head != null){
+            while (slow != null && fast != null){
                 slow = slow.next;
                 fast = fast.next;
                 if (fast != null){
