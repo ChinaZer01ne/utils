@@ -33,7 +33,7 @@ public class MyStream6 {
                     theMap.put("score",theMap.get("score") + student.getScore());
                     System.out.println(theMap);
                 }, (theMap,map) -> {
-                    System.err.println(theMap);
+                    System.err.println(theMap );
                     theMap.put("count",theMap.get("count") + map.get("count"));
                     theMap.put("score",theMap.get("score") + map.get("score"));
                     return theMap;
