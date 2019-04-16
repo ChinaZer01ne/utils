@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 /**
  * @Author: Zer01ne

@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 public class MyTest5 {
     public static void main(String[] args) {

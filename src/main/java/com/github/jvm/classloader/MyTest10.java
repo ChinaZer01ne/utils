@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 import java.lang.reflect.Method;
 
@@ -11,8 +11,8 @@ public class MyTest10 {
         classLoader1.setPath("C:\\Users\\Zer01ne\\Desktop\\");
         classLoader2.setPath("C:\\Users\\Zer01ne\\Desktop\\");
 
-        Class<?> aClass1 = classLoader1.loadClass("com.github.jvm.MyPerson");
-        Class<?> aClass2 = classLoader2.loadClass("com.github.jvm.MyPerson");
+        Class<?> aClass1 = classLoader1.loadClass("com.github.jvm.classloader.MyPerson");
+        Class<?> aClass2 = classLoader2.loadClass("com.github.jvm.classloader.MyPerson");
         System.out.println(aClass1 == aClass2);
 
         Object o1 = aClass1.getDeclaredConstructor().newInstance();

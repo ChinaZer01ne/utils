@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -74,7 +74,7 @@ public class MyClassLoader extends ClassLoader {
         //如果两个类加载器需要自己加载类，并且没有层级关系，那么每个类加载器会在自己的命名空间中加载一次
         MyClassLoader classLoader = new MyClassLoader("load1");
         classLoader.setPath("C:\\Users\\Ninee\\Desktop\\");
-        Class<?> aClass = classLoader.loadClass("com.github.jvm.MyTest");
+        Class<?> aClass = classLoader.loadClass("com.github.jvm.classloader.MyTest");
         System.out.println(aClass.hashCode());
         Object o = aClass.getDeclaredConstructor().newInstance();
         System.out.println(o);
@@ -89,7 +89,7 @@ public class MyClassLoader extends ClassLoader {
 
         MyClassLoader classLoader2 = new MyClassLoader(classLoader,"load2");
         classLoader2.setPath("C:\\Users\\Ninee\\Desktop\\");
-        Class<?> aClass2 = classLoader2.loadClass("com.github.jvm.MyTest");
+        Class<?> aClass2 = classLoader2.loadClass("com.github.jvm.classloader.MyTest");
         System.out.println(aClass2.hashCode());
         Object o2 = aClass2.getDeclaredConstructor().newInstance();
         System.out.println(o2);

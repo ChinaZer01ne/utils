@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 /**
  * 类的初始化不会引起接口的初始化

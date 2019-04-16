@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 public class MyPerson {
     private MyPerson myPerson;

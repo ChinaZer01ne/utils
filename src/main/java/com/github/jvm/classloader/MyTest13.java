@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 import java.sql.Driver;
 import java.util.Iterator;

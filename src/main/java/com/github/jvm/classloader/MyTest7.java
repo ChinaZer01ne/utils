@@ -1,4 +1,4 @@
-package com.github.jvm;
+package com.github.jvm.classloader;
 
 /**
  * @author Zer01ne
@@ -10,12 +10,12 @@ public class MyTest7 {
         Class<?> aClass = Class.forName("java.lang.String");
         ClassLoader classLoader = aClass.getClassLoader();
         System.out.println(classLoader);
-        Class<?> bClass = Class.forName("com.github.jvm.B");
+        Class<?> bClass = Class.forName("com.github.jvm.classloader.B");
         ClassLoader classLoader2 = bClass.getClassLoader();
         System.out.println(classLoader2);
 
         ClassLoader loader = ClassLoader.getSystemClassLoader();
-        System.out.println(loader.loadClass("com.github.jvm.B"));
+        System.out.println(loader.loadClass("com.github.jvm.classloader.B"));
 
         String[] strs = new String[3];
         System.out.println(strs.getClass().getClassLoader());
