@@ -1,7 +1,7 @@
 package com.github.jvm.bytecode;
 
 public class MyTest1 {
-    private int a;
+    private int a = 1;
 
     public int getA() {
         return a;
