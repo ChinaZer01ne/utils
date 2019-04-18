@@ -27,12 +27,13 @@ public class DynamicSubject implements InvocationHandler {
     }
 
     public static void main(String[] args) {
-        RealSubject target = new RealSubject();
-
+        //System.getProperties().put()
         //System.getProperties().put("sum.misc.ProxyGenerator.saveGeneratedFiles",true);
-        System.getProperties().put("jdk.proxy.ProxyGenerator.saveGeneratedFiles",true);
+        System.getProperties().put("jdk.proxy.ProxyGenerator.saveGeneratedFiles","true");
+        //System.getProperties().setProperty("jdk.proxy.ProxyGenerator.saveGeneratedFiles","true");
         System.out.println(System.getProperties().get("jdk.proxy.ProxyGenerator.saveGeneratedFiles"));
 
+        RealSubject target = new RealSubject();
         DynamicSubject dynamicSubject = new DynamicSubject(target);
         Subject subject = (Subject) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), dynamicSubject);
         subject.test();
