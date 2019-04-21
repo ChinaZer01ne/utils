@@ -1,4 +1,4 @@
-package com.github.concurrency;
+package com.github.concurrency.thread;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
