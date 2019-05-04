@@ -1,4 +1,4 @@
-package com.github.concurrency;
+package com.github.concurrency.test;
 
 import java.util.ArrayList;
 import java.util.Collections;

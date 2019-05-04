@@ -1,4 +1,4 @@
-package com.github.concurrency;
+package com.github.concurrency.test;
 
 public class FinalTest {
     public static void main(String[] args) {
