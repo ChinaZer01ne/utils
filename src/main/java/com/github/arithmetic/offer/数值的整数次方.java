@@ -16,24 +16,52 @@ public class 数值的整数次方 {
     }
 
     public static double Power(double base, int exponent) {
-        if (exponent == 1){
-            return base;
+
+        boolean nav = false;
+
+        if (exponent < 0){
+            if (base == 0){
+                throw new RuntimeException("分母不能为0");
+            }
+            exponent = -exponent;
+            nav = true;
+        }else if (exponent == 0){
+            return 1;
+        }
+
+        double res = 1;
+        //根据位数的权值来算
+        while (exponent != 0){
+            if ((exponent&1) == 1){
+                res *= base;
+            }
+            base *= base;
+            exponent >>= 1;
+        }
+        return nav ? 1/res : res;
+    }
+
+    public static double Power2(double base, int exponent) {
+
+        boolean nav = false;
+
+        if (exponent < 0){
+            if (base == 0){
+                throw new RuntimeException("分母不能为0");
+            }
+            exponent = -exponent;
+            nav = true;
         }
 
         double num = 1;
 
-        if (exponent % 2 == 0){
-            exponent = exponent / 2;
-        }else {
-            exponent = (exponent - 1) / 2;
-            num = base;
+        for (int i = 0; i < exponent; i++) {
+            num = num * base;
         }
 
-        while (exponent != 0){
-            num = base * base * num;
-            exponent--;
+        if (nav){
+            return 1/num;
         }
-
         return num;
     }
 }
