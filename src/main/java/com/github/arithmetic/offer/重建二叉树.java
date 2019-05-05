@@ -1,4 +1,10 @@
 package com.github.arithmetic.offer;
+
+import org.apache.poi.ss.formula.functions.T;
+
+import java.util.Arrays;
+import java.util.Stack;
+
 /**
  * 【第四题】TODO
  *
@@ -19,13 +25,20 @@ public class 重建二叉树 {
 
     public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
 
-        int root = pre[0];
+        if (pre.length == 0 || in.length == 0){
+            return null;
+        }
+        //根节点
+        TreeNode node = new TreeNode(pre[0]);
 
-        TreeNode tree = new TreeNode(root);
-
-        int rootIndexAtIn = searchRootIndexAtIn(in, root);
-
-        return null;
+        //找出中间的数
+        for (int i = 0; i < in.length; i++) {
+            if (in[i] == pre[0]){
+                node.left = reConstructBinaryTree(Arrays.copyOfRange(pre,0,i + 1),Arrays.copyOfRange(pre,0,i + 1));
+                node.right = reConstructBinaryTree(Arrays.copyOfRange(pre,i + 1,pre.length),Arrays.copyOfRange(pre,i + 1,in.length));
+            }
+        }
+        return node;
     }
 
     public int searchRootIndexAtIn(int[] in,int root){

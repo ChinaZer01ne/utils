@@ -1,4 +1,10 @@
 package com.github.arithmetic.offer;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * 字符流中第一个不重复的字符
  *
@@ -15,14 +21,39 @@ package com.github.arithmetic.offer;
  */
 public class 字符流中第一个不重复的字符 {
 
+    static List<Character> list = new ArrayList<>();
     //Insert one char from stringstream
-    public void Insert(char ch)
+    public static void Insert(char ch)
     {
+        if (list.contains(ch)){
+            list.remove((Character)ch);
+        }else {
+            list.add(ch);
+        }
 
     }
     //return the first appearence once char in current stringstream
-    public char FirstAppearingOnce()
+    public static char FirstAppearingOnce()
     {
-        return 'a';
+        if (list.size() == 0){
+            return '#';
+        }
+        return list.get(0);
+    }
+
+    public static void main(String[] args) {
+        // g g g # l l
+        Insert('g');
+        System.out.println(FirstAppearingOnce());
+        Insert('o');
+        System.out.println(FirstAppearingOnce());
+        Insert('o');
+        System.out.println(FirstAppearingOnce());
+        Insert('g');
+        System.out.println(FirstAppearingOnce());
+        Insert('l');
+        System.out.println(FirstAppearingOnce());
+        Insert('e');
+        System.out.println(FirstAppearingOnce());
     }
 }
