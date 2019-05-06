@@ -1,7 +1,7 @@
 package com.github.arithmetic.offer;
 /**
  *
- * 【第10题】矩形覆盖   TODO
+ * 【第10题】矩形覆盖
  * 时间限制：1秒 空间限制：32768K 热度指数：256642
  *
  * 题目描述

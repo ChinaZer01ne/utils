@@ -1,12 +1,10 @@
 package com.github.arithmetic.offer;
 
-import org.apache.poi.ss.formula.functions.T;
 
 import java.util.Arrays;
-import java.util.Stack;
 
 /**
- * 【第四题】TODO
+ * 【第四题】
  *
  * 重建二叉树。
  *
@@ -34,8 +32,8 @@ public class 重建二叉树 {
         //找出中间的数
         for (int i = 0; i < in.length; i++) {
             if (in[i] == pre[0]){
-                node.left = reConstructBinaryTree(Arrays.copyOfRange(pre,0,i + 1),Arrays.copyOfRange(pre,0,i + 1));
-                node.right = reConstructBinaryTree(Arrays.copyOfRange(pre,i + 1,pre.length),Arrays.copyOfRange(pre,i + 1,in.length));
+                node.left = reConstructBinaryTree(Arrays.copyOfRange(pre,1,i + 1),Arrays.copyOfRange(pre,0,i));
+                node.right = reConstructBinaryTree(Arrays.copyOfRange(pre,i + 1,pre.length),Arrays.copyOfRange(in,i + 1,in.length));
             }
         }
         return node;

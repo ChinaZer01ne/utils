@@ -23,31 +23,50 @@ import java.util.Stack;
 public class 栈的压入弹出序列 {
 
     public static void main(String[] args) {
-
+        int[] pushA = new int[]{1,2,3,4,5};
+        int[] popA = new int[]{4,3,5,1,2};
+        System.out.println(IsPopOrder(pushA, popA));
     }
 
-    public boolean IsPopOrder(int [] pushA,int [] popA) {
+    /** 思路：对入栈出栈操作进行模拟，然后比对
+     *
+     * 先执行压栈操作，判断当前站定和出栈序列的当前元素是否相等，如果相等则出栈操作，然后继续判断是否与出栈序列下一个元素相等，如果不相等，按照压栈序列继续压栈
+     * */
+    public static boolean IsPopOrder(int [] pushA,int [] popA) {
 
-        //Stack<Integer> stack = new Stack<>();
-        //
-        //for (int i = 0; i < pushA.length; i++) {
-        //    stack.push(i);
-        //}
-        //
-        //for (int i = 0; i < popA.length; i++) {
-        //    if (stack.pop() != popA[i]){
-        //        return false;
-        //    }
-        //}
-        //
-        //return true;
+        if (pushA.length == 0 || popA.length == 0){
+            return false;
+        }
 
-        //for (int i = 0; i < popA.length; i++) {
-        //    if (stack.pop() != popA[i]){
-        //        return false;
-        //    }
-        //}
-        return false;
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(pushA[0]);
+
+        //出栈序列元素指针
+        int popPoint = 0;
+        //入栈序列元素指针
+        int pushPoint = 1;
+
+
+        //pushPoint <= pushA.length
+        while (pushPoint <= pushA.length && popPoint < popA.length){
+            if (stack.peek() != popA[popPoint]){
+                //此时说明入栈完毕，栈中还有元素
+                if (pushPoint == pushA.length){
+                    return false;
+                }
+                stack.push(pushA[pushPoint]);
+                pushPoint++;
+
+            }else {
+                stack.pop();
+                popPoint++;
+            }
+        }
+
+
+        return stack.isEmpty();
+
     }
 
 }

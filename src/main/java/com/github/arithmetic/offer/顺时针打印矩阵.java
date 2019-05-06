@@ -26,52 +26,67 @@ public class 顺时针打印矩阵 {
         arrayList.stream().forEach(System.out::println);
     }
 
+
+
+
     public static ArrayList<Integer> printMatrix(int [][] matrix) {
+
+        //左上
+        int tR = 0;
+        int tC = 0;
+        //右下
+        int dR = matrix.length - 1;
+        int dC = matrix[0].length - 1;
 
         ArrayList<Integer> arrayList = new ArrayList<>();
 
 
-        //左上
-        int LTx = 0;
-        int LTy = 0;
-        //右下
-        int RDx = matrix.length - 1;
-        int RDy = matrix[0].length - 1;
+        return printMatrix(matrix,arrayList,tR,tC,dR,dC);
 
+    }
 
-        if (LTx == RDx){
-            for (int i = 0; i < matrix[0].length; i++) {
-                arrayList.add(matrix[0][i]);
+    private static ArrayList<Integer> printMatrix(int[][] matrix,  ArrayList<Integer> arrayList, int tR, int tC, int dR, int dC) {
+
+        if (tC > dC || tR > dR){
+            return arrayList;
+        }
+        //while (tC <= dC && tR <= dR){
+        //说明只有一行
+        if (tR == dR){
+            for (int i = tC; i <= dC; i++) {
+                arrayList.add(matrix[tR][i]);
             }
             return arrayList;
-        }else if (LTy == RDy){
-            for (int i = 0; i < matrix.length; i++) {
-                arrayList.add(matrix[i][0]);
+        }
+        //说明只有一列
+        if (tC == dC){
+            for (int i = tR; i <= dR; i++) {
+                arrayList.add(matrix[i][tC]);
             }
             return arrayList;
         }
 
-        while (LTy <= RDy && LTx <= RDx ){
-            for (int i = LTy; i <= RDy - 1; i++) {
-                arrayList.add(matrix[LTx][i]);
-            }
 
-            for (int i = LTx; i <= RDx - 1 ; i++) {
-                arrayList.add(matrix[i][RDy]);
-            }
-
-            for (int i = RDy; i >= LTy + 1; i--) {
-                arrayList.add(matrix[RDx][i]);
-            }
-
-            for (int i = RDx ; i >= LTx + 1; i--) {
-                arrayList.add(matrix[i][LTy]);
-            }
-            LTy++;
-            RDy--;
-            LTx++;
-            RDx--;
+        //其他情况
+        for (int i = tC; i < dC; i++) {
+            arrayList.add(matrix[tC][i]);
         }
+        for (int i = tR; i < dR; i++) {
+            arrayList.add(matrix[i][dC]);
+        }
+        for (int i = dC; i > tC; i--) {
+            arrayList.add(matrix[dR][i]);
+        }
+        for (int i = dR; i > tR; i--) {
+            arrayList.add(matrix[i][tC]);
+        }
+
+        tC++;
+        tR++;
+        dC--;
+        dR--;
+        //}
+        printMatrix(matrix,arrayList,tR,tC,dR,dC);
         return arrayList;
     }
 }
