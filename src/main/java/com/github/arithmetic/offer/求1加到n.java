@@ -18,6 +18,8 @@ public class 求1加到n {
         System.out.println(Sum_Solution(10));
     }
 
+
+
     /**
      * 妙啊！利用短路与的特性，来控制右边逻辑的执行与否，来达到终止递归的目的
      */
