@@ -26,28 +26,17 @@ public class 整数中1出现的次数 {
      */
     public static int NumberOf1Between1AndN_Solution(int n) {
 
-        //if (n < 10){
-        //    return 1;
-        //}
-        //
-        //int bit = 0;
-        //int temp = n;
-        //while (temp != 0){
-        //    temp = temp / 10;
-        //    bit++;
-        //}
-        //
-        //int sum = 1;
-        //int tempBit = bit;
-        //
-        //while (tempBit != 0){
-        //   sum = sum * 10;
-        //    tempBit--;
-        //}
-        //
-        //int leave = n - sum;
-        //
-        //return (bit - 1) * 10 + NumberOf1Between1AndN_Solution(leave);
-        return 0;
+        if (n <= 0){
+            return 0;
+        }
+
+        int count = 0;
+
+        for (int i = 1; i <= n; i = i * 10) {
+            long diviver = i * 10;
+            count += (n / diviver) * i +  Math.min(Math.max(n % diviver - i + 1, 0),i);
+        }
+
+        return count;
     }
 }

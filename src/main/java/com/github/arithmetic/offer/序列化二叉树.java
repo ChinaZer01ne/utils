@@ -1,5 +1,8 @@
 package com.github.arithmetic.offer;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * 序列化二叉树
@@ -33,28 +36,43 @@ public class 序列化二叉树 {
         node3.left = node6;
 
         System.out.println(Serialize(root));
+        TreeNode deserialize = Deserialize(Serialize(root));
 
     }
 
     static String Serialize(TreeNode root) {
         if (root == null){
-            return "#!";
+            return "#!,";
         }else {
             return  root.val + "," + Serialize(root.left) +  Serialize(root.right);
         }
 
     }
-    TreeNode Deserialize(String str) {
 
-        String ele = str.substring(1);
+    static TreeNode Deserialize(String str){
 
-        if ("#!".equals(ele)){
+        String[] strs = str.split(",");
+
+        Queue<String> queue = new LinkedList<>();
+        for (String s : strs) {
+            queue.offer(s);
+        }
+        return DeserializeProcess(queue);
+    }
+    static TreeNode DeserializeProcess(Queue<String> queue) {
+
+
+        String s = queue.poll();
+        if ("#!".equals(s)){
             return null;
-        }else {
-            TreeNode node = new TreeNode(Integer.parseInt(ele));
         }
 
-        return null;
+        TreeNode node = new TreeNode(Integer.parseInt(s));
+
+        node.left = DeserializeProcess(queue);
+        node.right = DeserializeProcess(queue);
+
+        return node;
     }
 
     static class TreeNode {

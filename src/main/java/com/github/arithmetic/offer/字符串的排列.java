@@ -1,6 +1,10 @@
 package com.github.arithmetic.offer;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -19,7 +23,62 @@ import java.util.ArrayList;
  */
 public class 字符串的排列 {
 
+    public static void main(String[] args) {
+        字符串的排列 p = new 字符串的排列();
+        System.out.println(p.Permutation("abc").toString());
+    }
+
+
     public ArrayList<String> Permutation(String str) {
-        return null;
+
+        ArrayList<String> result = new ArrayList<>();
+        if (str != null && str.length() > 1){
+            PermutationHelper(str.toCharArray(), 0, result);
+            Collections.sort(result);
+        }
+
+        return result;
+    }
+
+    private void PermutationHelper2(char[] chs, int cur, ArrayList<String> result) {
+        if (cur == chs.length - 1){
+            String s = String.valueOf(chs);
+            if (!result.contains(s)){
+                result.add(s);
+            }
+            result.add(String.valueOf(chs));
+        }else {
+            for (int i = cur; i < chs.length; i++) {
+                swap(chs,i,cur);
+                PermutationHelper2(chs,cur + 1,result);
+                swap(chs,i,cur);
+            }
+
+        }
+
+
+    }
+    private void PermutationHelper(char[] chs, int cur, ArrayList<String> result) {
+
+        if (cur == chs.length - 1){
+            String s = String.valueOf(chs);
+            if (!result.contains(s)){
+                result.add(s);
+            }
+        }else {
+
+            for (int j = cur; j < chs.length; j++) {
+                swap(chs, cur, j);
+                PermutationHelper(chs, cur+1, result);
+                swap(chs, cur, j);
+            }
+        }
+
+    }
+
+    private void swap(char[] chars,int i,int j){
+        char c = chars[i];
+        chars[i] = chars[j];
+        chars[j] = c;
     }
 }

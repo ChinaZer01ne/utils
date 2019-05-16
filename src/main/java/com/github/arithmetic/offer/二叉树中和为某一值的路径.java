@@ -19,12 +19,29 @@ import java.util.Queue;
 public class 二叉树中和为某一值的路径 {
 
 
-    static ArrayList<ArrayList<Integer>> all = new ArrayList<>();
-
+    ArrayList<ArrayList<Integer>> listAll = new ArrayList<>();
+    ArrayList<Integer> list = new ArrayList<>();
     /** 先序遍历 递归,target做减法*/
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
 
-        return null;
+        if (root == null){
+            return listAll;
+        }
+
+        list.add(root.val);
+
+        target -= root.val;
+
+        if (target == 0 && root.left == null && root.right == null){
+             listAll.add(new ArrayList<>(list));
+        }
+
+        FindPath(root.left,target);
+        FindPath(root.right,target);
+
+        list.remove(list.size() - 1);
+
+        return listAll;
 
     }
 
@@ -46,12 +63,14 @@ public class 二叉树中和为某一值的路径 {
         node3.left = node6;
         node3.left = node7;
 
-        walk(new ArrayList<>(),root,24);
 
-        System.out.println(all.size());
+        二叉树中和为某一值的路径 e = new 二叉树中和为某一值的路径();
+        e.FindPath(root,24);
+
+        System.out.println(e.listAll.size());
 
         for (ArrayList<Integer> list:
-             all) {
+             e.listAll) {
             for (Integer i:
                  list) {
                 System.out.print(i + "\t");
@@ -60,26 +79,7 @@ public class 二叉树中和为某一值的路径 {
         }
     }
 
-    public static ArrayList<Integer> walk(ArrayList<Integer> list,TreeNode root, int target) {
 
-        if (root == null){
-            return new ArrayList<>();
-        }
-
-        target = target - root.val;
-        if (target == 0){
-            all.add(list);
-            return list;
-        }else if (target < 0){
-            return null;
-        }
-
-        walk(list,root.left, target);
-
-        walk(list,root.right, target);
-
-        return list;
-    }
 
 
 
