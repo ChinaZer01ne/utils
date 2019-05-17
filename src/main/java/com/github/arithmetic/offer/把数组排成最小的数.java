@@ -1,4 +1,7 @@
 package com.github.arithmetic.offer;
+
+import java.util.*;
+
 /**
  *
  * 把数组排成最小的数
@@ -14,6 +17,33 @@ package com.github.arithmetic.offer;
  */
 public class 把数组排成最小的数 {
     public String PrintMinNumber(int [] numbers) {
-        return "";
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<Integer> list= new ArrayList<Integer>();
+
+        for(int i=0;i < numbers.length;i++){
+            list.add(numbers[i]);
+
+        }
+
+        Collections.sort(list, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer str1, Integer str2) {
+                String s1 = str1 + "" + str2;
+                String s2 = str2 + "" + str1;
+                return s1.compareTo(s2);
+            }
+        });
+
+
+        for (int j :
+                list) {
+            stringBuilder.append(j);
+        }
+
+        return stringBuilder.toString();
     }
+
+
 }
