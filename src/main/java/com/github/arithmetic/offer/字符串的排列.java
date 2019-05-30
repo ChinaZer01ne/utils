@@ -32,21 +32,30 @@ public class 字符串的排列 {
     public ArrayList<String> Permutation(String str) {
 
         ArrayList<String> result = new ArrayList<>();
-        if (str != null && str.length() > 1){
+
+
+        if (str != null && str.length() > 0){
             PermutationHelper(str.toCharArray(), 0, result);
             Collections.sort(result);
         }
 
         return result;
     }
-
+    /**
+     * abcdef
+     * a在第一位，后面全排列：a与a交换，后边全排列
+     * a在第二位，后面全排列：a与b交换，后边全排列
+     * a在第三位，后面全排列：a与c交换，后边全排列
+     * a在第四位，后面全排列：a与d交换，后边全排列
+     * a在第五位，后面全排列：a与e交换，后边全排列
+     *
+     * */
     private void PermutationHelper2(char[] chs, int cur, ArrayList<String> result) {
         if (cur == chs.length - 1){
             String s = String.valueOf(chs);
             if (!result.contains(s)){
                 result.add(s);
             }
-            result.add(String.valueOf(chs));
         }else {
             for (int i = cur; i < chs.length; i++) {
                 swap(chs,i,cur);
@@ -55,6 +64,8 @@ public class 字符串的排列 {
             }
 
         }
+
+
 
 
     }
