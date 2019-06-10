@@ -1,5 +1,7 @@
 package com.github.arithmetic;
 
+import com.github.arithmetic.offer.两个链表的第一个公共结点;
+
 import java.util.HashSet;
 
 /**
@@ -61,7 +63,32 @@ public class FindFirstIntersectNode {
     private static Node bothLoop(Node head1, Node loop1, Node head2, Node loop2) {
         //如果入环节点相同，说明是第二种情况,与无环相交问题是一样的
         if (loop1 == loop2){
-            return noLoop(head1,head2);
+            //回到无环链表相交问题，只不过终点是loopNode1，loopNode2
+            Node cur1 = null;
+            Node cur2 = null;
+            cur1 = head1;
+            cur2 = head2;
+            int n = 0;
+            while (cur1 != loop1) {
+                n++;
+                cur1 = cur1.next;
+            }
+            while (cur2 != loop2) {
+                n--;
+                cur2 = cur2.next;
+            }
+            cur1 = n > 0 ? head1 : head2;
+            cur2 = cur1 == head1 ? head2 : head1;
+            n = Math.abs(n);
+            while (n != 0) {
+                n--;
+                cur1 = cur1.next;
+            }
+            while (cur1 != cur2) {
+                cur1 = cur1.next;
+                cur2 = cur2.next;
+            }
+            return cur1;
         }else {
             Node cur = loop1.next;
             //当loop1和cur相等的时候，说明转了一圈没有找到loop2，不相交，如果找到loop2，说明相交
