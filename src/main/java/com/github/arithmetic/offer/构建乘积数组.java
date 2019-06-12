@@ -21,7 +21,7 @@ public class 构建乘积数组 {
     }
     /** 思路：
      *      第一种：N^2，遍历就可以了
-     *      第二种：
+     *
      * */
     public int[] multiply(int[] A) {
 
@@ -41,4 +41,30 @@ public class 构建乘积数组 {
         }
         return B;
     }
+
+    /**
+     *  第二种：O（N）
+     * */
+    public int[] multiply2(int[] A) {
+
+        int[] B = new int[A.length];
+
+        if (A.length > 0){
+
+            B[0] = 1;
+            //计算下三角连乘
+            for (int i = 1; i < A.length; i++) {
+                B[i] = B[i - 1] * A[i - 1];
+            }
+            int temp = 1;
+            //计算上三角
+            for (int i = A.length - 2; i > 0; i--) {
+                temp *= A[i + 1];
+                B[i] *= temp;
+            }
+        }
+
+        return B;
+    }
+
 }

@@ -22,19 +22,19 @@ public class 删除链表中重复的节点 {
     public static void main(String[] args) {
         ListNode tempHead1 = new ListNode(1);
         ListNode tempHead2 = new ListNode(1);
-        ListNode tempHead3 = new ListNode(2);
-        ListNode tempHead4 = new ListNode(2);
-        ListNode tempHead5 = new ListNode(3);
-        ListNode tempHead6 = new ListNode(3);
-        ListNode tempHead7 = new ListNode(4);
-        ListNode tempHead8 = new ListNode(4);
+        ListNode tempHead3 = new ListNode(1);
+        ListNode tempHead4 = new ListNode(1);
+        ListNode tempHead5 = new ListNode(1);
+        ListNode tempHead6 = new ListNode(1);
+        ListNode tempHead7 = new ListNode(1);
+        //ListNode tempHead8 = new ListNode(4);
         tempHead1.next = tempHead2;
         tempHead2.next = tempHead3;
         tempHead3.next = tempHead4;
         tempHead4.next = tempHead5;
         tempHead5.next = tempHead6;
         tempHead6.next = tempHead7;
-        tempHead7.next = tempHead8;
+        //tempHead7.next = tempHead8;
 
         ListNode listNode = deleteDuplication2(tempHead1);
 
@@ -45,43 +45,58 @@ public class 删除链表中重复的节点 {
 
     }
 
-
+    /**
+     * 思路：
+     *      设置两个指针，类似尺子查找元素
+     * */
     public static ListNode deleteDuplication2(ListNode pHead) {
 
-        if (pHead == null || pHead.next == null) {
+        if (pHead == null || pHead.next == null){
             return pHead;
         }
+        //头指针
+        ListNode tempHead = new ListNode(0);
+        //重复元素前一个指针，用来删除
+        ListNode preNode = tempHead;
+        //记录新链表的头结点
+        tempHead.next = pHead;
 
-        LinkedList<ListNode> queue = new LinkedList<>();
+        ListNode first = pHead;
+        ListNode second = pHead.next;
+        //是否重复
+        boolean repeat = false;
 
+        while (second != null){
 
-        int curValue = pHead.val;
+            //如果值相等，second指针往下走
+            if (first.val == second.val){
+                second = second.next;
+                //重复阶段
+                repeat = true;
+            }else {
 
-
-        boolean hasEle = false;
-
-        while (pHead != null){
-
-            if (pHead.val != curValue){
-                queue.add(pHead);
-                curValue = pHead.val;
-                if (hasEle){
-                    queue.pollLast();
+                if (repeat){
+                    //处理重复元素，删除操作
+                    preNode.next = second;
+                    //改为非重复阶段
+                    repeat =false;
+                }else {
+                    //非重复阶段，preNode指针往后走一位
+                    preNode = first;
                 }
-            } else {
-                pHead = pHead.next;
-                hasEle = true;
+                //如果值不相等，first，second同时往下走
+                first = second;
+                second = second.next;
             }
-        }
 
-        ListNode node = queue.poll();
-        ListNode head = node;
-        while (node != null){
-            node.next = queue.peek();
-            node = queue.poll();
-        }
 
-        return head;
+        }
+        //如果second走到最后，处理结尾重复的情况
+        first.next = null;
+        if (repeat){
+            preNode.next = null;
+        }
+        return tempHead.next;
     }
 
 
