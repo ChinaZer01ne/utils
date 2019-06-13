@@ -1,5 +1,7 @@
 package com.github.arithmetic.offer;
 
+import jdk.nashorn.internal.objects.NativeUint8Array;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,45 +24,55 @@ import java.util.Map;
  */
 public class 扑克牌顺子 {
 
-    public boolean isContinuous(int [] ints) {
+    /**
+     * 链接：https://www.nowcoder.com/questionTerminal/762836f4d43d43ca9deb273b3de8e1f4
+     * 来源：牛客网
+     *
+     * max 记录 最大值
+     * min 记录  最小值
+     * min ,max 都不记0
+     * 满足条件
+     *         1 除0外没有重复的数字(牌)
+     *         2  max - min <5
+     *         3 数组长度 为5
+     *
+     * */
+    public boolean isContinuous(int [] numbers) {
 
-        //int i = numbers.length;
-        //
-        //for (int j = 0 ; j < 5 ; j ++){
-        //    int random = (int) (Math.random() * i);
-        //    swap(numbers, random, i);
-        //    i--;
-        //}
+        if (numbers == null || numbers.length < 5){
+            return false;
+        }
 
-        //int[] ints = Arrays.copyOfRange(numbers, numbers.length - 6, numbers.length - 1);
-        Map<Integer,Integer> zeroMap = new HashMap<>();
-        zeroMap.put(0,0);
-        Arrays.sort(ints);
-        for (int k = 0; k < ints.length - 1;k++){
-
-            if (ints[k] == 0){
-                zeroMap.put(0,zeroMap.get(0) + 1);
+        int[] d = new int[14];
+        d[0] = -5;
+        int len = numbers.length;
+        int max = -1;
+        int min = 14;
+        for (int i = 0; i < len; i++) {
+            d[numbers[i]]++;
+            if (numbers[i] == 0){
                 continue;
             }
-
-            if (ints[k + 1] != ints[k] + 1){
-                if (zeroMap.get(0) > 0 && ints[k + 1] - ints[k] + 1 < 2){
-                    zeroMap.put(0,zeroMap.get(0) - 1);
-                }else {
-                    return false;
-                }
+            //说明一张牌（忽略花色）出现了多次
+            if (d[numbers[i]] > 1){
+                return false;
+            }
+            //记录最大最小值
+            if (numbers[i] > max){
+                max = numbers[i];
+            }
+            if (numbers[i] < min){
+                min = numbers[i];
             }
         }
-        return true;
-
+        //满足同样的牌出现一次（忽略花色）
+        if (max - min < 5){
+            return true;
+        }
+        return false;
     }
 
-    private void swap(int[]arr,int i, int j){
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
 
-    }
     public static void main(String[] args) {
         扑克牌顺子 a = new 扑克牌顺子();
         //System.out.println(a.isContinuous(new int[]{1, 3, 2, 5, 4}));

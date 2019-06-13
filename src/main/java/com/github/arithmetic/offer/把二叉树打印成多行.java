@@ -49,76 +49,69 @@ public class 把二叉树打印成多行 {
 
     }
     /** 二叉树的层级遍历 */
-    ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
+    public ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
 
 
         ArrayList<ArrayList<Integer>> result = new ArrayList<>();
 
-        if (pRoot == null){
+        if(pRoot == null){
             return result;
         }
 
-
-        int storey = 1;
-        int nullCount = 1;
-
         Queue<TreeNode> queue = new LinkedList<>();
+        ArrayList<Integer> depth = new ArrayList<>();
 
         queue.add(pRoot);
 
-        ArrayList<Integer> phase = new ArrayList<>();
-
+        int start = 0, end = 1;
 
         while (!queue.isEmpty()){
 
-            TreeNode node = queue.poll();
+            TreeNode node = queue.remove();
 
+            depth.add(node.val);
 
-            if (node == null){
-                continue;
-            }
-
-
-            if ( Math.pow(2,storey) - 1 == nullCount ){
-                //if (node != pRoot){
-                result.add(phase);
-            }
-
-            phase.add(node.val);
-
-            if ( Math.pow(2,storey) - 1 == nullCount ){
-                //if (node != pRoot){
-                storey++;
-                //result.add(phase);
-                phase = new ArrayList<>();
-                //}else {
-                //    storey++;
-                //}
-
-            }
-
+            start ++;
 
             if (node.left != null){
                 queue.add(node.left);
-            }else {
-                queue.add(null);
             }
-
-            nullCount ++;
-
             if (node.right != null){
                 queue.add(node.right);
-            }else {
-                queue.add(null);
             }
 
-            nullCount ++;
+            if(start == end){
+                end = queue.size();
+                start = 0;
+                result.add(depth);
+                depth = new ArrayList<>();
+            }
+        }
+        return result;
+    }
 
+    /** 递归 */
+    public ArrayList<ArrayList<Integer>> Print2(TreeNode pRoot) {
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        depth(pRoot, 1, list);
+        return list;
+    }
 
+    private void depth(TreeNode root, int depth, ArrayList<ArrayList<Integer>> list) {
+        if (root == null){
+            return;
         }
 
+        if (depth > list.size()){
+            list.add(new ArrayList<>());
+        }
 
-        return result;
+        list.get(depth - 1).add(root.val);
+
+        depth(root.left,depth + 1,list);
+        depth(root.right,depth + 1,list);
+
+
     }
 
 
