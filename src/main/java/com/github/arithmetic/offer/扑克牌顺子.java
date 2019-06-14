@@ -1,10 +1,6 @@
 package com.github.arithmetic.offer;
 
-import jdk.nashorn.internal.objects.NativeUint8Array;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
