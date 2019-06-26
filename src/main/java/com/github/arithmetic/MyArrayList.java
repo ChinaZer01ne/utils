@@ -60,6 +60,17 @@ public class MyArrayList<T> {
         return (T) array[index];
     }
 
+    public T getFirst(){
+
+        return get(0);
+    }
+
+    public T getLast(){
+
+        return get(size - 1);
+    }
+
+
     public void set(int index,T ele){
         if (index < 0 || index > size - 1){
             throw new IndexOutOfBoundsException("非法的索引下标");
