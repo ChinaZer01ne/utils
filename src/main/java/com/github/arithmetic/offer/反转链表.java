@@ -26,7 +26,7 @@ public class 反转链表 {
         node2.next = node3;
         node3.next = node4;
         node4.next = node5;
-        ListNode head = ReverseList(node1);
+        ListNode head = ReverseList3(node1);
         while (head != null){
             System.out.println(head.val);
             head = head.next;
@@ -35,6 +35,7 @@ public class 反转链表 {
     /**
      * 思路1：反转？栈呗
      * 思路2：反转？递归啊
+     * 思路3：用三个临时变量
      */
 
     private static ListNode newNode = null;
@@ -87,6 +88,28 @@ public class 反转链表 {
 
         return newHead;
     }
+
+    /**
+     * 思路3：用三个临时变量
+     * */
+
+    public static ListNode ReverseList3(ListNode head) {
+
+        ListNode cur = head;
+        ListNode prev = null;
+        ListNode next = cur.next;
+
+        while (cur != null){
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            if (next!=null){
+                next = next.next;
+            }
+        }
+        return prev;
+    }
+
 
     public static class ListNode {
         int val;

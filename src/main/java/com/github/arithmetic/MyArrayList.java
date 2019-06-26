@@ -1,7 +1,5 @@
 package com.github.arithmetic;
 
-import java.util.Arrays;
-
 /**
  * @author Zer01ne
  * @version 1.0
@@ -119,7 +117,7 @@ public class MyArrayList<T> {
 
         array[size] = null;
 
-        if (size == array.length / 2){
+        if (size == array.length / 4 && array.length / 2 != 0){
             array = resize(array.length / 2);
         }
         return removeEle;

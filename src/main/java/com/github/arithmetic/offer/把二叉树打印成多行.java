@@ -1,8 +1,9 @@
 package com.github.arithmetic.offer;
 
-import org.springframework.util.CollectionUtils;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -111,7 +112,7 @@ public class 把二叉树打印成多行 {
         depth(root.left,depth + 1,list);
         depth(root.right,depth + 1,list);
 
-
+        
     }
 
 
