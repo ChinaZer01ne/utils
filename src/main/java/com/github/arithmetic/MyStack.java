@@ -10,6 +10,6 @@ public interface MyStack<T> {
     int getSize();
     boolean isEmpty();
     T pop();
-    void puhs(T t);
+    void push(T t);
     T peek();
 }

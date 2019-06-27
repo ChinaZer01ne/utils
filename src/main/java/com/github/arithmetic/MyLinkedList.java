@@ -30,10 +30,28 @@ public class MyLinkedList<T> {
         //node.next = head;
         //head = node;
         add(0,t);
-        size++;
-
     }
 
+
+    /**
+     * 递归版本
+     */
+    public void add2(int index, T t){
+        dummyHead.next = add(index, t , dummyHead.next);
+    }
+
+    public Node<T> add(int index, T t, Node<T> node){
+        if (index == 0){
+            size ++;
+            return new Node<>(t,node);
+        }
+        node.next = add(index - 1 ,t , node.next);
+
+        return node;
+    }
+    /**
+     * 非递归版本
+     */
     public void add(int index, T t){
         if (index < 0 || index > size){
             throw new IndexOutOfBoundsException();
@@ -131,7 +149,7 @@ public class MyLinkedList<T> {
 
         StringBuilder res = new StringBuilder();
 
-        res.append(String.format("size = %d\n",size));
+        //res.append(String.format("size = %d\n",size));
         //Node<T> cur = dummyHead.next;
         //while (cur != null){
         //    res.append(cur);
@@ -162,23 +180,23 @@ public class MyLinkedList<T> {
     }
 
     private class Node<T>{
-    public T t;
-    private Node<T> next;
+        public T t;
+        private Node<T> next;
 
-    public Node(T t, Node<T> next) {
-        this.t = t;
-        this.next = next;
-    }
+        public Node(T t, Node<T> next) {
+            this.t = t;
+            this.next = next;
+        }
 
-    public Node(T t) {
-        this.t = t;
-    }
+        public Node(T t) {
+            this.t = t;
+        }
 
-    public Node() {
-    }
+        public Node() {
+        }
 
-    @Override
-    public String toString() {
+        @Override
+        public String toString() {
             return t.toString();
         }
     }

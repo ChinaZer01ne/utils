@@ -37,7 +37,7 @@ public class MyArrayStack<T> implements MyStack<T> {
     }
 
     @Override
-    public void puhs(T t) {
+    public void push(T t) {
         array.addLast(t);
     }
 
