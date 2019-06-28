@@ -5,6 +5,7 @@ import org.apache.commons.collections4.SplitMapUtils;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * @author Zer01ne
@@ -33,11 +34,197 @@ public class BST<E extends Comparable<E>> {
         bst.add2(2);
         System.out.println(bst);
 
-        System.out.println(bst.contains(9));
+        //System.out.println(bst.contains(9));
 
         //bst.preOrder();
         //bst.midOrder();
-        bst.behindOrder();
+        //bst.behindOrder();
+
+        System.out.println(bst.removeMin());
+        System.out.println(bst);
+        System.out.println(bst.removeMin());
+        System.out.println(bst);
+        System.out.println("===========");
+        System.out.println(bst.removeMin2());
+        System.out.println(bst);
+        System.out.println(bst.removeMin2());
+        System.out.println(bst);
+
+    }
+
+    //寻找二分搜索树最小元素
+    public E minmum(){
+        if (size == 0){
+            throw new IllegalArgumentException("BST is empty!");
+        }
+        return minmum(root).e;
+    }
+    //返回以node为根的二分搜索树的最小值所在的节点
+    public Node<E> minmum(Node<E> node){
+
+        if (node.left == null){
+            return node;
+        }
+
+        return minmum(node.left);
+
+    }
+
+    //寻找二分搜索树最大元素
+    public E maxmum(){
+        if (size == 0){
+            throw new IllegalArgumentException("BST is empty!");
+        }
+        return maxmum(root).e;
+    }
+    //返回以node为根的二分搜索树的最大值所在的节点
+    public Node<E> maxmum(Node<E> node){
+
+        if (node.right == null){
+            return node;
+        }
+
+        return maxmum(node.right);
+
+    }
+
+    //删除最小值所在的节点，并返回,非递归
+    public E removeMin() {
+
+        if (root == null){
+            return null;
+        }
+
+
+        //如果没有左子树
+        if (root.left == null){
+            Node<E> resNode = root;
+            resNode.right = null;
+            root = root.right;
+            return resNode.e;
+        }
+
+
+        Node<E> prev = root;
+        E res = minmum();
+        while (prev.left.e != res){
+           prev = prev.left;
+        }
+
+        //当前节点可能有右子树
+        Node<E> cur = prev.left;
+        if (cur.right != null){
+            Node<E> rightTeee = cur.right;
+            prev.left = rightTeee;
+        }else{
+            prev.left = null;
+        }
+
+        return res;
+
+    }
+
+    //删除最小值所在的节点，并返回,递归
+    public E removeMin2() {
+
+        E res = minmum();
+
+        root = removeMin(root);
+
+        return res;
+
+    }
+
+    private Node<E> removeMin(Node<E> node) {
+        if (node.left == null){
+            Node<E> rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+
+    //删除最大值所在的节点，并返回,递归
+    public E removeMax2() {
+
+        E res = minmum();
+
+        root = removeMax(root);
+
+        return res;
+
+    }
+
+    private Node<E> removeMax(Node<E> node) {
+        if (node.right == null){
+            Node<E> leftTree = node.left;
+            node.left = null;
+            size--;
+            return leftTree;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    public E removeMax() {
+
+        if (root == null){
+            return null;
+        }
+        if (size == 1){
+            Node<E> resNode = root;
+            root = null;
+            return resNode.e;
+        }
+
+        Node<E> cur = root;
+        Node<E> prev = new Node<>(null);
+        prev.right = root;
+
+        while (cur.right != null){
+            prev = prev.right;
+            cur = cur.right;
+        }
+        Node<E> res = prev.right;
+        prev.right = null;
+        return res.e;
+    }
+
+    //删除任意元素,非递归
+    public void removeElement(E e){
+        //TODO
+    }
+
+    //删除任意元素,递归
+    public Node<E> removeElement2(Node<E> node, E e){
+        //TODO
+        if (node.e.compareTo(e) == 0){
+            //如果没有左孩子
+            if (node.left == null){
+                return node.right;
+            }
+            if (node.right == null){
+                return node.left;
+            }
+            //找到右子树的最小值
+            Node<E> minNode = removeMin(node.right);
+            minNode.right = node.right;
+            minNode.left = node.left;
+            return minNode;
+        }
+
+        if (node.e.compareTo(e) > 0){
+            node.left = removeElement2(node.left,e);
+        }
+
+        if (node.e.compareTo(e) < 0){
+            node.right = removeElement2(node.right,e);
+        }
+        return node;
     }
 
     public void behindOrder() {
@@ -86,6 +273,104 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    //dfs思想，优先向左子树访问,然后每次出栈后，再访问右子树
+    public void preOrder3(Node<E> node) {
+
+        Stack<Node<E>> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()){
+            while (root != null){
+                stack.push(root);
+                System.out.println(root.e);
+                root = root.left;
+            }
+
+            root = stack.pop();
+
+            root = root.right;
+        }
+
+    }
+
+    //dfs思想，优先向左子树访问,然后每次出栈后，再访问右子树
+    public void midOrder2(Node<E> node) {
+
+        Stack<Node<E>> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()){
+            while (root != null){
+                stack.push(root);
+                root = root.left;
+            }
+
+            root = stack.pop();
+            System.out.println(root.e);
+
+            root = root.right;
+        }
+
+    }
+
+    public void midOrder3(Node<E> node) {
+
+        Stack<Node<E>> stack = new Stack<>();
+
+        while (root != null || !stack.isEmpty()){
+            if (root != null){
+                stack.push(root);
+                root = root.left;
+            }else {
+                root = stack.pop();
+                System.out.println(root.e);
+                root = root.right;
+            }
+        }
+
+    }
+
+    //dfs
+    public void postOrder2(Node<E> node) {
+
+        Stack<Node<E>> stack = new Stack<>();
+        LinkedList<E> linkedList = new LinkedList<>();
+
+        while (root != null || stack.isEmpty()){
+            while (root != null){
+                stack.push(root);
+                linkedList.offerFirst(root.e);
+                root = root.right;
+            }
+            root = stack.pop();
+            root = root.left;
+        }
+
+        for (E e:
+             linkedList) {
+            System.out.println(e);
+        }
+    }
+    //保存根，先压右，在押左
+    public Stack<E> postOrder3(Node<E> node) {
+
+        Stack<E> answer = new Stack<>();
+        if (root == null){
+            return answer;
+        }
+        Stack<Node<E>> stack = new Stack<>();
+
+        stack.push(root);
+
+        while (stack.isEmpty()){
+            root = stack.pop();
+            answer.push(root.e);
+            if (root.right != null){
+                stack.push(root.right);
+            }
+            if (root.left != null){
+                stack.push(root.left);
+            }
+        }
+
+        return answer;
+    }
 
     public boolean contains(E e){
 
