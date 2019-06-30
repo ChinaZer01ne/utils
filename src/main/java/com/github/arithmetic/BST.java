@@ -1,8 +1,5 @@
 package com.github.arithmetic;
 
-import org.apache.commons.collections4.SplitMapUtils;
-
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -32,24 +29,17 @@ public class BST<E extends Comparable<E>> {
         bst.add2(9);
         bst.add2(13);
         bst.add2(2);
-        System.out.println(bst);
 
-        //System.out.println(bst.contains(9));
-
-        //bst.preOrder();
-        //bst.midOrder();
-        //bst.behindOrder();
-
-        System.out.println(bst.removeMin());
-        System.out.println(bst);
-        System.out.println(bst.removeMin());
+        System.out.println("===========");
+        bst.removeElementNoRecursive(6);
         System.out.println(bst);
         System.out.println("===========");
-        System.out.println(bst.removeMin2());
+        bst.removeElementNoRecursive(9);
         System.out.println(bst);
-        System.out.println(bst.removeMin2());
+        System.out.println("===========");
+        bst.removeElementNoRecursive(7);
         System.out.println(bst);
-
+        System.out.println("===========");
     }
 
     //寻找二分搜索树最小元素
@@ -199,30 +189,42 @@ public class BST<E extends Comparable<E>> {
         //TODO
     }
 
+    public void removeElementNoRecursive(E e){
+        //TODO
+        root = removeElement2(root,e);
+    }
     //删除任意元素,递归
     public Node<E> removeElement2(Node<E> node, E e){
         //TODO
-        if (node.e.compareTo(e) == 0){
-            //如果没有左孩子
-            if (node.left == null){
-                return node.right;
-            }
-            if (node.right == null){
-                return node.left;
-            }
-            //找到右子树的最小值
-            Node<E> minNode = removeMin(node.right);
-            minNode.right = node.right;
-            minNode.left = node.left;
-            return minNode;
+        if (node == null){
+            return null;
         }
 
         if (node.e.compareTo(e) > 0){
             node.left = removeElement2(node.left,e);
-        }
-
-        if (node.e.compareTo(e) < 0){
+        }else if (node.e.compareTo(e) < 0){
             node.right = removeElement2(node.right,e);
+        }else{
+            //如果没有左孩子
+            if (node.left == null){
+                Node<E> rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            if (node.right == null){
+                Node<E> leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            //找到右子树的最小值
+            Node<E> minNode = minmum(node.right);
+            minNode.right = removeMin(node.right);
+            minNode.left = node.left;
+            node.left = null;
+            node.right = null;
+            return minNode;
         }
         return node;
     }
@@ -243,6 +245,9 @@ public class BST<E extends Comparable<E>> {
     public void midOrder() {
         midOrder(root);
     }
+    public void midOrder1() {
+        midOrder1(root);
+    }
 
     public void midOrder(Node<E> node) {
         if (node == null){
@@ -253,8 +258,30 @@ public class BST<E extends Comparable<E>> {
         midOrder(node.right);
     }
 
+    public void midOrder1(Node<E> node) {
+
+        if (node == null){
+            return;
+        }
+        Stack<Node<E>> stack = new Stack<>();
+
+        if (node.right != null){
+            stack.push(node.right);
+        }
+        stack.push(node);
+        if (node.left != null){
+            stack.push(node.left);
+        }
+
+
+
+    }
+
     public void preOrder() {
         preOrder(root);
+    }
+    public void preOrder2() {
+        preOrder2(root);
     }
 
     public void preOrder(Node<E> node) {
@@ -268,9 +295,21 @@ public class BST<E extends Comparable<E>> {
 
     public void preOrder2(Node<E> node) {
 
-        while (node != null){
+        Stack<Node<E>> stack = new Stack<>();
 
+        stack.push(node);
+
+        while (!stack.isEmpty()){
+            Node<E> pNode = stack.pop();
+            System.out.println(pNode.e);
+            if (pNode.right != null){
+                stack.push(pNode.right);
+            }
+            if (pNode.left != null){
+                stack.push(pNode.left);
+            }
         }
+
     }
 
     //dfs思想，优先向左子树访问,然后每次出栈后，再访问右子树

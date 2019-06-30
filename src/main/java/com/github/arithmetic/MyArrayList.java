@@ -16,6 +16,12 @@ public class MyArrayList<T> {
         size = 0;
     }
 
+    public MyArrayList(Object[] arr) {
+        array = new Object[arr.length];
+        System.arraycopy(arr,0,array,0,arr.length);
+        size = arr.length;
+    }
+
     public MyArrayList() {
         this(10);
     }
@@ -206,5 +212,15 @@ public class MyArrayList<T> {
         }
 
         System.out.println(list.toString());
+    }
+
+    public void swap(int i, int j) {
+
+        if (i < 0 || i > size - 1 || j < 0 || j > size - 1){
+            throw new IllegalArgumentException();
+        }
+            Object e = array[i];
+            array[i] = array[j];
+            array[j] = e;
     }
 }
