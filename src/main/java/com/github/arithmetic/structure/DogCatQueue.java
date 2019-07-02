@@ -1,11 +1,7 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 
-import org.hamcrest.core.Is;
-
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**

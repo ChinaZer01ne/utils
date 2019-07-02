@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 /**
  * 求矩阵中岛数量问题

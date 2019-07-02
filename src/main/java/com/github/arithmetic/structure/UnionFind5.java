@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 /**
  * 路径压缩 并查集

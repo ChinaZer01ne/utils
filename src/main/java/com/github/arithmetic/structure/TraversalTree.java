@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 import org.apache.poi.ss.formula.functions.T;
 

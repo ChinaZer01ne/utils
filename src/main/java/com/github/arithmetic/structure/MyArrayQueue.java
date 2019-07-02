@@ -1,6 +1,4 @@
-package com.github.arithmetic;
-
-import java.util.ArrayList;
+package com.github.arithmetic.structure;
 
 /**
  * @author Zer01ne

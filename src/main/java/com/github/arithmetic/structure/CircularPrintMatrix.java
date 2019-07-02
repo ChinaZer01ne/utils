@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

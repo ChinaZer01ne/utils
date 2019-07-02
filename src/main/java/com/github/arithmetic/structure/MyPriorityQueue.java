@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 public class MyPriorityQueue<E extends Comparable<E>> implements MyQueue<E> {
 

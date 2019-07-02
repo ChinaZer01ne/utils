@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 import com.github.arithmetic.offer.两个链表的第一个公共结点;
 

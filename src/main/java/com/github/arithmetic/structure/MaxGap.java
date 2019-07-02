@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 /**
  * 求排序后相邻两数的最大差值

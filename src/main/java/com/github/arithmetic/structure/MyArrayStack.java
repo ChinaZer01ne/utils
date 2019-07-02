@@ -1,8 +1,4 @@
-package com.github.arithmetic;
-
-import org.apache.poi.ss.formula.functions.T;
-
-import java.util.Stack;
+package com.github.arithmetic.structure;
 
 /**
  * @author Zer01ne

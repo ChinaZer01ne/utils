@@ -1,8 +1,4 @@
-package com.github.arithmetic;
-
-import org.apache.poi.ss.formula.functions.T;
-
-import java.util.LinkedList;
+package com.github.arithmetic.structure;
 
 /**
  * 在链表结构中，小于区域放左边，等于区域在中间，大于区域在右边

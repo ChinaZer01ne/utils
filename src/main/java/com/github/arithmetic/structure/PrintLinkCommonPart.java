@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 import java.util.Iterator;
 import java.util.LinkedList;

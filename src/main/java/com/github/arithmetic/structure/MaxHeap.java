@@ -1,4 +1,4 @@
-package com.github.arithmetic;
+package com.github.arithmetic.structure;
 
 public class MaxHeap<E extends Comparable<E>> {
 
