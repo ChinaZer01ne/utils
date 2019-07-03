@@ -67,6 +67,7 @@ public class HashTable<K,V> {
 
             return treeMap.remove(key);
         }
+        return null;
     }
 
     private void resize(int newM) {
