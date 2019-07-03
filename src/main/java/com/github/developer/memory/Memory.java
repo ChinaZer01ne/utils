@@ -32,7 +32,7 @@ public class Memory {
         userMemory.writeStudyItem(memoryRecords);
 
         ExecutorService service = Executors.newScheduledThreadPool(1);
-        service.s
+        //service.s
     }
 
 

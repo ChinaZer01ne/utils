@@ -1,6 +1,24 @@
 package com.github.arithmetic.structure;
 
 /**
+ *
+ *
+ *         黑                黑     左旋转       黑    右旋转      黑       颜色翻转      红
+ *        /       ——>       /      ——>         /     ——>       /  \      ——>         / \
+ *      红                 红                 红              红    红               黑   黑
+ *                          |                /
+ *                           红             红
+ *
+ *       ①                ②               ③                  ④                    ⑤
+ *
+ * 在不同位置插入元素，需要调整颜色的三种情况
+ *     ①②③④⑤
+ *     ①③④⑤
+ *     ①④⑤
+ *
+ *
+ *
+ *
  * 红黑树
  * @author peach
  * @since 2019/7/2 下午11:06
@@ -33,6 +51,8 @@ public class RBTree<K extends Comparable<K>, V> {
         size = 0;
     }
 
+
+
     public int getSize(){
         return size;
     }
@@ -41,18 +61,75 @@ public class RBTree<K extends Comparable<K>, V> {
         return size == 0;
     }
 
-    // 向二分搜索树中添加新的元素(key, value)
-    public void add(K key, V value){
-        root = add(root, key, value);
+    public boolean isRed(Node node){
+        if (node == null)
+            return BLACK;
+        return node.color;
+    }
+    /**
+     * 左旋转，当红色节点往右倾斜了，就需要左旋转
+     *
+     *          42（黑）                         60（黑）
+     *            \         ------>             /
+     *             60（红）                    42（红）
+     *
+     */
+    private Node leftRotate(Node node){
+        Node newRoot = node.right;
+        node.right = newRoot.left;
+        newRoot.left = node;
+        newRoot.color = node.color;
+        node.color = RED;
+        return newRoot;
     }
 
-    // 向以node为根的二分搜索树中插入元素(key, value)，递归算法
-    // 返回插入新节点后二分搜索树的根
+    /**
+     * 颜色翻转
+     * 当在根节点两边分别添加一个节点导致三节点分裂的时候，就需要颜色翻转
+     *
+     *                                                    42（红）
+     *   38（红） - 42（黑） - 60（红）    ------>         /    \
+     *                                              38（黑）  60（黑）
+     *
+     *
+     */
+    private void flipColors(Node node){
+        node.color = RED;
+        node.left.color = node.right.color = BLACK;
+    }
+
+    /**
+     * 右旋转
+     * 当在根节点一边连续添加两个个节点导致三节点分裂的时候，就需要右旋转
+     *             42（黑）
+     *            /             right rotate           38（与之前父相同颜色）        flipColor         38（红）
+     *          38（红）          ------>               /      \                 ------->           /      \
+     *          /             相当于2-3树三节点的情况    20（红）   42（红）                           20（黑）   42（黑）
+     *        20（红）
+     *
+     */
+    private Node rightRotate(Node node){
+        Node newRoot = node.left;
+        node.left = newRoot.right;
+        newRoot.right = node;
+        newRoot.color = node.color;
+        node.color = RED;
+        return newRoot;
+    }
+
+    // 向红黑树中添加新的元素(key, value)
+    public void add(K key, V value){
+        root = add(root, key, value);
+        root.color = BLACK;
+    }
+
+    // 向以node为根的红黑树中插入元素(key, value)，递归算法
+    // 返回插入新节点后红黑树的根
     private Node add(Node node, K key, V value){
 
         if(node == null){
             size ++;
-            return new Node(key, value);
+            return new Node(key, value);        //默认红色节点
         }
 
         if(key.compareTo(node.key) < 0)
@@ -62,6 +139,18 @@ public class RBTree<K extends Comparable<K>, V> {
         else // key.compareTo(node.key) == 0
             node.value = value;
 
+        //右孩子是红色并且左孩子不是红色，那么左旋转
+        if (isRed(node.right) && !isRed(node.left)){
+            node = leftRotate(node);
+        }
+        //满足右旋转
+        if (isRed(node.left) && isRed(node.left.left)){
+            node = rightRotate(node);
+        }
+        //颜色翻转
+        if (isRed(node.left) && isRed(node.right)){
+            flipColors(node);
+        }
         return node;
     }
 
@@ -176,9 +265,7 @@ public class RBTree<K extends Comparable<K>, V> {
     }
 
 
-    public boolean isRed(Node node){
-        return node.color;
-    }
+
     public static void main(String[] args){
 
 
