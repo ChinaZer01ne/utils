@@ -1,6 +1,5 @@
 package com.github.developer.memory;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**

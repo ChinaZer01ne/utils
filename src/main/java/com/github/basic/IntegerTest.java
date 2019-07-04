@@ -41,5 +41,9 @@ public class IntegerTest {
         System.out.println("=========================");
         System.out.println(-1 & 0x7fffffff);
         System.out.println(1 & 0x7fffffff);
+        System.out.println("=========================");
+        System.out.println(Integer.parseInt("123456",2));
+
+
     }
 }
