@@ -63,9 +63,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         converter.setSupportedMediaTypes(mediaTypes);
         converters.add(0,converter);
         System.err.println("添加消息转换器");
-        converters.stream().forEach(c ->{
-            System.err.println(c);
-        });
+        converters.forEach(System.err::println);
     }
 
 
