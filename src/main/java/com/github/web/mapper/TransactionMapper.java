@@ -3,6 +3,8 @@ package com.github.web.mapper;
 import com.github.web.entity.Transaction;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author: Zer01ne
@@ -19,7 +21,8 @@ public interface TransactionMapper {
     @Insert("insert into transaction values(#{id},#{name},#{version})")
     int insert(Transaction transaction);
 
-    @Update("update transaction set name = #{name}, version = #{version}")
+
+    @Update("update transaction set name = #{name}, version = #{version} where id = #{id}")
     int update(Transaction transaction);
 
     @Delete("delete from transaction where id = #{id}")

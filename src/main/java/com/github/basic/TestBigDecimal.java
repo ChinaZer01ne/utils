@@ -16,5 +16,6 @@ public class TestBigDecimal {
         BigDecimal a = new BigDecimal(0.005);
         BigDecimal b = new BigDecimal(1000000);
         System.out.println(a.multiply(b));
+
     }
 }
