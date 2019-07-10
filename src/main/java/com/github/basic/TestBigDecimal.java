@@ -13,9 +13,14 @@ public class TestBigDecimal {
 
         //BigDecimal a = new BigDecimal("0.005");
         //BigDecimal b = new BigDecimal("1000000");
-        BigDecimal a = new BigDecimal(0.005);
+        BigDecimal a = new BigDecimal(100.115);
         BigDecimal b = new BigDecimal(1000000);
         System.out.println(a.multiply(b));
 
+
+        BigDecimal value = new BigDecimal("0.1");
+        BigDecimal str = new BigDecimal(0.1);
+
+        System.out.println();
     }
 }
