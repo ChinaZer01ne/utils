@@ -33,9 +33,9 @@ public class TransactionController {
      * @return com.github.web.common.Result
      * @throws
      */
-    @PostMapping("/add")
-    public Result add(Transaction transaction){
-        return Result.success(transactionService.add(transaction));
+    @PostMapping("/addWithRequired")
+    public Result addWithRequired(Transaction transaction){
+        return Result.success(transactionService.addWithRequired(transaction));
     }
     /**
      * 更新
@@ -43,9 +43,9 @@ public class TransactionController {
      * @return com.github.web.common.Result
      * @throws
      */
-    @PutMapping("/update")
-    public Result update(Transaction transaction){
-        return Result.success(transactionService.update(transaction));
+    @PutMapping("/updateWithSupports")
+    public Result updateWithSupports(Transaction transaction){
+        return Result.success(transactionService.updateWithSupports(transaction));
     }
     /**
      * 删除
@@ -53,11 +53,51 @@ public class TransactionController {
      * @return com.github.web.common.Result
      * @throws
      */
-    @DeleteMapping("/delete")
-    public Result delete(Integer id){
-        return Result.success(transactionService.delete(id));
+    @DeleteMapping("/deleteWithMandatory")
+    public Result deleteWithMandatory(Integer id){
+        return Result.success(transactionService.deleteWithMandatory(id));
     }
 
+    /**
+     * 删除
+     * @param id :
+     * @return com.github.web.common.Result
+     * @throws
+     */
+    @DeleteMapping("/deleteWithNotSupported")
+    public Result deleteWithNotSupported(Integer id){
+        return Result.success(transactionService.deleteWithNotSupported(id));
+    }
+    /**
+     * 删除
+     * @param id :
+     * @return com.github.web.common.Result
+     * @throws
+     */
+    @DeleteMapping("/deleteWithRequiresNew")
+    public Result deleteWithRequiresNew(Integer id){
+        return Result.success(transactionService.deleteWithRequiresNew(id));
+    }
+    /**
+     * 删除
+     * @param id :
+     * @return com.github.web.common.Result
+     * @throws
+     */
+    @DeleteMapping("/deleteWithNested")
+    public Result deleteWithNested(Integer id){
+        return Result.success(transactionService.deleteWithNested(id));
+    }
+    /**
+     * 删除
+     * @param id :
+     * @return com.github.web.common.Result
+     * @throws
+     */
+    @DeleteMapping("/deleteWithNever")
+    public Result deleteWithNever(Integer id){
+        return Result.success(transactionService.deleteWithNever(id));
+    }
     @GetMapping("/test")
     public String test(){
         return "json test";

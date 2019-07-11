@@ -20,19 +20,48 @@ public interface SubTransactionService {
      * @return int
      * @throws
      */
-    int add(Transaction transaction);
+    int addWithRequired(Transaction transaction);
     /**
      * 更新
      * @param transaction :
      * @return int
      * @throws
      */
-    int update(Transaction transaction);
+    int updateWithSupports(Transaction transaction);
     /**
      * 删除
      * @param id :
      * @return int
      * @throws
      */
-    int delete(Integer id);
+    int deleteWithMandatory(Integer id);
+    /**
+     * 删除
+     * @param id :
+     * @return int
+     * @throws
+     */
+    int deleteWithNotSupported(Integer id);
+    /**
+     * 删除
+     * @param id :
+     * @return int
+     * @throws
+     */
+    int deleteWithRequiresNew(Integer id);
+
+    /**
+     * 删除
+     * @param id :
+     * @return int
+     * @throws
+     */
+    int deleteWithNested(Integer id);
+    /**
+     * 删除
+     * @param id :
+     * @return int
+     * @throws
+     */
+    int deleteWithNever(Integer id);
 }

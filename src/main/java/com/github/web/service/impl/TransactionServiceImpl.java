@@ -28,12 +28,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public int add(Transaction transaction) {
+    public int addWithRequired(Transaction transaction) {
 
         /**
          * 如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择。
          */
-        int insert = subTransactionService.add(transaction);
+        int insert = subTransactionService.addWithRequired(transaction);
 
         System.out.println(insert);
 
@@ -45,12 +45,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int update(Transaction transaction) {
+    public int updateWithSupports(Transaction transaction) {
 
         /**
          * 支持当前事务，如果当前没有事务，就以非事务方式执行。
          */
-        int update = subTransactionService.update(transaction);
+        int update = subTransactionService.updateWithSupports(transaction);
 
         System.out.println(update);
 
@@ -69,11 +69,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int delete(Integer id) {
+    public int deleteWithMandatory(Integer id) {
         /**
          * 使用子事务，如果当前没有事务，就抛出异常。
          * */
-        int delete = subTransactionService.delete(id);
+        int delete = subTransactionService.deleteWithMandatory(id);
         //
         //System.out.println(delete);
         //
@@ -82,5 +82,52 @@ public class TransactionServiceImpl implements TransactionService {
         //}
 
         return delete;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int deleteWithNotSupported(Integer id) {
+        /**
+         * 以非事务方式执行操作，如果调用者存在事务，就把调用者事务挂起
+         * */
+        int delete = subTransactionService.deleteWithNotSupported(id);
+
+        throw new RuntimeException("删除回滚测试");
+
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int deleteWithRequiresNew(Integer id) {
+        /**
+         * 开启新事务，若调用者已有事务存在，挂起调用者事务：当执行子事务的时候，父事务挂起，子事务执行完，父事务继续
+         * */
+        int delete = subTransactionService.deleteWithRequiresNew(id);
+
+        throw new RuntimeException("删除回滚测试");
+
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int deleteWithNested(Integer id) {
+        /**
+         * 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作。
+         * */
+        int delete = subTransactionService.deleteWithNested(id);
+
+        throw new RuntimeException("删除回滚测试");
+
+    }
+
+    //@Transactional(rollbackFor = Exception.class)
+    @Override
+    public int deleteWithNever(Integer id) {
+        /**
+         * 如果调用者存在事务，则抛出异常
+         * */
+        int delete = subTransactionService.deleteWithNever(id);
+
+        throw new RuntimeException("删除回滚测试");
     }
 }

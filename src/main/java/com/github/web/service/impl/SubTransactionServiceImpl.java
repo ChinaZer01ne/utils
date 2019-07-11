@@ -29,7 +29,7 @@ public class SubTransactionServiceImpl implements SubTransactionService {
      */
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRED)
     @Override
-    public int add(Transaction transaction) {
+    public int addWithRequired(Transaction transaction) {
         int insert = transactionMapper.insert(transaction);
         if (insert > 0){
             throw new RuntimeException("子事务异常");
@@ -42,7 +42,7 @@ public class SubTransactionServiceImpl implements SubTransactionService {
      */
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.SUPPORTS)
     @Override
-    public int update(Transaction transaction) {
+    public int updateWithSupports(Transaction transaction) {
 
         return transactionMapper.update(transaction);
     }
@@ -51,12 +51,46 @@ public class SubTransactionServiceImpl implements SubTransactionService {
      * 使用子事务，如果当前没有事务，就抛出异常。
      * */
     @Transactional(rollbackFor = Exception.class,propagation = Propagation.MANDATORY)
+    @Override
+    public int deleteWithMandatory(Integer id) {
+
+        return transactionMapper.delete(id);
+    }
+
     /**
      * 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
      * */
-    //@Transactional(rollbackFor = Exception.class,propagation = Propagation.NOT_SUPPORTED)
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.NOT_SUPPORTED)
     @Override
-    public int delete(Integer id) {
+    public int deleteWithNotSupported(Integer id) {
+
+        return transactionMapper.delete(id);
+    }
+
+    /**
+     * 开启新事务，若调用者已有事务存在，挂起调用者事务：当执行子事务的时候，父事务挂起，子事务执行完，父事务继续
+     * */
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public int deleteWithRequiresNew(Integer id) {
+
+        return transactionMapper.delete(id);
+    }
+    /**
+     * 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作。
+     * */
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.NESTED)
+    @Override
+    public int deleteWithNested(Integer id) {
+
+        return transactionMapper.delete(id);
+    }
+    /**
+     * 以非事务方式执行，如果调用者存在事务，则抛出异常
+     * */
+    @Transactional(rollbackFor = Exception.class,propagation = Propagation.NEVER)
+    @Override
+    public int deleteWithNever(Integer id) {
 
         return transactionMapper.delete(id);
     }
