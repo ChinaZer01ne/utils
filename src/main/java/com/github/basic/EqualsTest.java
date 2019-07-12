@@ -14,5 +14,13 @@ public class EqualsTest {
 
         //不同类型之间是不能比较的   false
         System.out.println(a.equals(b));
+
+        Byte c = 123;
+        byte d = 123;
+
+        System.out.println(c.equals(b));
+        //System.out.println(c == b);
+        System.out.println(d == b);
+
     }
 }
