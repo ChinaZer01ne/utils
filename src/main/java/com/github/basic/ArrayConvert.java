@@ -10,6 +10,7 @@ public class ArrayConvert {
     public static void main(String[] args) {
         Object[] arr = new Object[10];
         //Integer[] arrInt = (Integer[])arr;
+        //不能转换
         Integer[] arrInt = (Integer[])new Object[10];
         Convert<Integer> convert = new Convert<>();
 

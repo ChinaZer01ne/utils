@@ -26,7 +26,11 @@ public class CyclicBarrierTest2 {
             service.submit(()->{
 
                 System.out.println(i.getAndIncrement());
-
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 try {
                     cyclicBarrier.await();
                 } catch (InterruptedException e) {

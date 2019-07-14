@@ -29,8 +29,8 @@ public class StringEquals {
         StringBuffer stringBuffer = new StringBuffer("java");
 
         String str2 = "lion";
-        String intern2 = str2.intern();
         StringBuffer stringBuffer2 = new StringBuffer("lion");
+        String intern2 = str2.intern();
 
 
         System.out.println(intern == str);
