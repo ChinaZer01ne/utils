@@ -1,6 +1,11 @@
 package com.github.utils.file;
 
+import com.alibaba.druid.sql.visitor.functions.If;
+import org.junit.Test;
+
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 /**
  * @Author: Zer01ne
@@ -20,6 +25,30 @@ public class OpenFile {
         while ((line = bufferedReader.readLine()) != null){
             System.out.println(line);
             lineNum++;
+        }
+    }
+    @Test
+    public void createBigFile() throws IOException {
+
+        File file = new File(PATH);
+
+        if (!file.exists()){
+            String dir = PATH.substring(0, PATH.lastIndexOf("\\"));
+            File dirs = new File(dir);
+            if (!dirs.exists()){
+                dirs.mkdirs();
+            }
+            file.createNewFile();
+        }
+
+        FileOutputStream fileInputStream = new FileOutputStream(file);
+        FileChannel channel = fileInputStream.getChannel();
+
+        int size = 0;
+
+        while (size < 1024 * 1024){
+            int write = channel.write(ByteBuffer.wrap("test\n".getBytes()));
+            size += write;
         }
     }
 }
