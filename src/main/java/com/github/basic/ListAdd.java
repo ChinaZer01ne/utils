@@ -5,6 +5,8 @@ import java.util.List;
 
 public class ListAdd {
     public static void main(String[] args) {
+        //add(null);
+        //System.out.println(list.size());
         add(1);
         add(2);
         add(3);

@@ -23,9 +23,12 @@ public class StringEquals {
     }
 
     @Test
-    public void str(){//TODO 理解
+    public void str(){
+        //放入常量池
         String str = "java";
+        //返回常量池的引用
         String intern = str.intern();
+        //堆中创建对象并指向常量池中的引用
         StringBuffer stringBuffer = new StringBuffer("java");
 
         String str2 = "lion";
@@ -34,10 +37,25 @@ public class StringEquals {
 
 
         System.out.println(intern == str);
+        // stringBuffer.toString() 底层是new String()
         System.out.println(stringBuffer.toString() == stringBuffer.toString().intern());
 
         System.out.println(intern2 == str2);
         System.out.println(stringBuffer2.toString() == stringBuffer2.toString().intern());
 
+    }
+
+    @Test
+    public void test(){
+        String s1 = new String("hello ") + new String("world");
+        s1.intern();
+        String s2 = "hello world";
+        System.out.println(s1 == s2);
+    }
+    @Test
+    public void test2(){
+        String s1 = new String("hello ") + new String("world");
+        String s2 = "hello world";
+        System.out.println(s1 == s2);
     }
 }
