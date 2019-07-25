@@ -1,13 +1,11 @@
 package com.github.web.service.impl;
 
+import com.github.web.controller.ControllerTest;
 import com.github.web.entity.Transaction;
-import com.github.web.mapper.TransactionMapper;
 import com.github.web.service.SubTransactionService;
 import com.github.web.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -18,12 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
+    /**
+     * 测试service注入controller，父子容器的问题,可以注入
+     */
+    @Autowired
+    private ControllerTest controllerTest;
 
     @Autowired
     private SubTransactionService subTransactionService;
 
     @Override
     public Transaction get(Integer id) {
+        //测试service注入controller，父子容器的问题,可以注入
+        //System.out.println(controllerTest.test);
         return subTransactionService.get(id);
     }
 
