@@ -1,4 +1,4 @@
-package com.github.web.config;
+package com.github.web.shiro;
 
 
 import com.github.web.shiro.CustomizedRealm;

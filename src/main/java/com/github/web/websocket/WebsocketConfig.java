@@ -1,4 +1,4 @@
-package com.github.web.config;
+package com.github.web.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

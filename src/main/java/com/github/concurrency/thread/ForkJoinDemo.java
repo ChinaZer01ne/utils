@@ -1,5 +1,8 @@
 package com.github.concurrency.thread;
 
+import org.junit.Test;
+
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -39,9 +42,17 @@ public class ForkJoinDemo {
             //继续进行拆分
             //startNum到startNum + temp / 2是把数据的左半部分形成一个新的task
             //比如0到10，那么就是 10-0=10，temp=10，startNum=0,所以形成的新task就是(0,10/2=5),也就是左半部分
-
-
-            return null;
+            TaskImpl leftTask = new TaskImpl(startNum,startNum + temp / 2);
+            //利用ForkJoinPool中的线程异步执行新创建的子任务
+            leftTask.fork();
+            //这创建的就是数据的后半段，start_num + temp / 2 = 0+10/2 = 6,所以形成的新task就是(0+10/2=6,10),也就是右半部分
+            TaskImpl rightTask = new TaskImpl(startNum + temp / 2,endNum);
+            //同时执行第二个子任务，有可能允许进一步划分
+            Long rightResult = rightTask.compute();
+            //读取第一个子任务的结果，如果没有完成就等待
+            Long leftResult = leftTask.join();
+            //该任务的结果是两个子任务结果的组合
+            return rightResult + leftResult;
         }
 
         //计算方法：在不能进行拆分的时候进行计算
@@ -52,5 +63,12 @@ public class ForkJoinDemo {
             }
             return sum;
         }
+    }
+
+    @Test
+    public void test() throws Exception {
+        TaskImpl forkJoin = new TaskImpl(0, 10000000);
+        Long invoke = new ForkJoinPool().invoke(forkJoin);
+        System.out.println("invoke = " + invoke);
     }
 }

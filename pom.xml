@@ -155,6 +155,13 @@
             <artifactId>shiro-spring-boot-starter</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <!-- JWT是一种协议标准，其实现有多种，这里使用jjwt,JAVA11+不兼容，缺了好多包-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
