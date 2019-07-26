@@ -2,15 +2,7 @@ package com.github.web.jwt;
 
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.impl.crypto.MacSigner;
-
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -51,6 +43,7 @@ public class JwtUtil {
 
         Map<String, Object> payloadMap = new HashMap<>();
         payloadMap.put("payload", "test");
+        payloadMap.put("exp", System.currentTimeMillis() + 1000);  //可以设置过期时间
 
         SignatureAlgorithm key = SignatureAlgorithm.HS256;
         JwtBuilder builder = Jwts.builder()
@@ -59,7 +52,9 @@ public class JwtUtil {
                 .setPayload(JSONObject.toJSONString(payloadMap))  //携带一些参数，比如用户id之类的
                 //.setSubject("bbb")    //代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放什么userid，roldid之类的，作为什么用户的唯一标志。
                                         // setSubject相当于在Claims中添加，如果想两者共同使用，setClaims要在setSubject之前
-                .signWith(key,"!@#123qwe"); // 加密方式：会自动在header中设置alg属性,后边的字符串是盐，如果太过简单会直接报错
+                .signWith(key,"!@#123qwe".getBytes()); // 加密方式：会自动在header中设置alg属性,后边的字符串是密钥，如果太过简单会直接报错
+                //.signWith(key,"IUAjMTIzcXdl");   //如果传入的是字符串，那么必须是base64加密的字符串
+
 
         return builder.compact();
     }
@@ -73,7 +68,7 @@ public class JwtUtil {
     public static Claims parseJWT(String jsonWebToken) {
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey("!@#123qwe")
+                    .setSigningKey("!@#123qwe".getBytes())
                     .parseClaimsJws(jsonWebToken).getBody();
             return claims;
         } catch (Exception ex) {
@@ -82,6 +77,8 @@ public class JwtUtil {
         }
     }
     public static void main(String[] args) {
+        //byte[] bytes = new byte[]{-41,109,-22,126,27,42};
+        //System.out.println(new String(bytes));
         String token = JwtUtil.createJWT();
         System.out.println(token);
         String[] split = token.split("\\.");
@@ -91,6 +88,7 @@ public class JwtUtil {
         System.out.println(new String(decode1));
         System.out.println(new String(decode2));
 
-        System.out.println(parseJWT(token));
+        Claims claims = parseJWT(token);
+        System.out.println(claims);
     }
 }
