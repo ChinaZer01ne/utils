@@ -3,6 +3,7 @@ package com.github.web.controller;
 import com.github.web.common.Result;
 import com.github.web.entity.Transaction;
 import com.github.web.service.TransactionService;
+import com.github.web.service.TransactionTwoWayService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,6 +18,13 @@ public class TransactionController {
 
     @Resource
     private TransactionService transactionService;
+
+    @Resource(name = "transactionInCodeService")
+    private TransactionTwoWayService transactionInCodeService;
+
+    @Resource(name = "transactionInAnnotationService")
+    private TransactionTwoWayService transactionInAnnotationService;
+
     /**
      * 查
      * @param id :
@@ -101,5 +109,22 @@ public class TransactionController {
     @GetMapping("/test")
     public String test(){
         return "json test";
+    }
+
+    /**
+     * 代码方式实现事务
+     */
+    @GetMapping("/code")
+    public String transactionByCode(@RequestParam("id") Integer id){
+
+        return transactionInCodeService.add(id);
+    }
+
+    /**
+     * 注解方式实现事务
+     */
+    @GetMapping("/annotation")
+    public String transactionByAnnotation(@RequestParam("id") Integer id){
+        return transactionInAnnotationService.add(id);
     }
 }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @version 1.0
  * @date 2019/6/21 13:39
  */
-public class TestBigDecimal {
+public class BigDecimalTest {
 
     public static void main(String[] args) {
 
@@ -20,6 +20,11 @@ public class TestBigDecimal {
 
         BigDecimal value = new BigDecimal("0.1");
         BigDecimal str = new BigDecimal(0.1);
+
+        System.out.println("===================");
+
+        System.out.println(new BigDecimal("0").equals(BigDecimal.ZERO));
+        System.out.println(new BigDecimal("0.00").equals(BigDecimal.ZERO));
 
         System.out.println();
     }

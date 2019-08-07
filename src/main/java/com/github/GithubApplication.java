@@ -61,7 +61,7 @@ public class GithubApplication {
 
     @Value("${SOLR_DELTA_PARAM}")
     private String SOLR_DELTA_PARAM;
-    @Scheduled(cron = "0/10 * * * * ? ")
+    //@Scheduled(cron = "0/10 * * * * ? ")
     public void scheduled(){
         System.out.println(new Date());
         SolrQuery solrQuery = new SolrQuery();
