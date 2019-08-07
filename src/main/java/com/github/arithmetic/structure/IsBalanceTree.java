@@ -35,7 +35,7 @@ public class IsBalanceTree {
         System.out.println(isBalanceTree(node1));
     }
 
-
+    @SuppressWarnings({"unchecked"})
     private static ReturnData isBalanceTree(TreeNode<Integer> head) {
         if (head == null){
             return new ReturnData(true,0);

@@ -19,7 +19,7 @@ public class BeanFactory {
             if (Objects.equals(beanDefinition.getBeanId(),beanId)){
                 Class<?> aClass = Class.forName(beanDefinition.getClassName());
                 //aClass.getDeclaredConstructor().newInstance();
-                return aClass.newInstance();
+                return aClass.getConstructor().newInstance();
             }
         }
         return null;

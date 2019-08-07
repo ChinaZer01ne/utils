@@ -37,10 +37,11 @@ public class ListOperation {
             System.out.println(i);
         }
     }
+
     private static void test() {
         int[] array = new int[5];
         System.out.println(array[0]);
-        List<Integer> list = new ArrayList();
+        List<Integer> list = new ArrayList<>();
 
         //测试异常类型
         //System.out.println(list.get(0));

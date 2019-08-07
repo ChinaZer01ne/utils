@@ -12,7 +12,7 @@ public class 唯一摩尔斯密码词804 {
     public int uniqueMorseRepresentations(String[] words) {
 
         String[] digits = new String[]{".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
-        TreeSet treeSet = new TreeSet();
+        TreeSet<String> treeSet = new TreeSet<>();
 
         for (int i = 0; i < words.length; i++) {
             StringBuilder sb = new StringBuilder();

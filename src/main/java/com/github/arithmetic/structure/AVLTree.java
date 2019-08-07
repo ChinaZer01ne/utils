@@ -58,7 +58,7 @@ public class AVLTree<E extends Comparable<E>> {
     public boolean isBalanced(){
         return isBalanced(root);
     }
-
+    @SuppressWarnings({"unchecked"})
     private boolean isBalanced(Node<E> root) {
 
         if (root == null){
@@ -72,7 +72,7 @@ public class AVLTree<E extends Comparable<E>> {
         return isBalanced(root.left) && isBalanced(root.right);
     }
 
-
+    @SuppressWarnings({"unchecked"})
     private void inOrder(Node<E> root, ArrayList keys) {
         if (root == null){
             return;
@@ -114,6 +114,7 @@ public class AVLTree<E extends Comparable<E>> {
         }
         return maxmum(root).e;
     }
+    @SuppressWarnings({"unchecked"})
     //返回以node为根的二分搜索树的最大值所在的节点
     public Node<E> maxmum(Node<E> node){
 
@@ -240,6 +241,7 @@ public class AVLTree<E extends Comparable<E>> {
         //TODO
         root = removeElement2(root,e);
     }
+    @SuppressWarnings({"unchecked"})
     //删除任意元素,递归
     public Node<E> removeElement2(Node<E> node, E e){
         //TODO
@@ -588,7 +590,7 @@ public class AVLTree<E extends Comparable<E>> {
         }
         return getHeight(node.left) - getHeight(node.right);
     }
-
+    @SuppressWarnings({"unchecked"})
     private Node<E> add(Node<E> node,E e){
 
         if (node == null){

@@ -43,7 +43,7 @@ public class IsPerfectTree {
             return true;
         }
         //忽然发现可以使用队列来进行树的层级遍历，哈哈
-        Queue<TreeNode> queue = new LinkedList();
+        Queue<TreeNode> queue = new LinkedList<>();
         boolean allLeaf = false;
         queue.offer(head);
         while (!queue.isEmpty()){

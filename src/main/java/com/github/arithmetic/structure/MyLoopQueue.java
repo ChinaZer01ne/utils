@@ -1,6 +1,4 @@
 package com.github.arithmetic.structure;
-
-
 /**
  * @author Zer01ne
  * @version 1.0
@@ -11,8 +9,8 @@ public class MyLoopQueue<T>  implements MyQueue<T>{
 
     private Object[] data;
     private int size;
-    int front = 0;
-    int tail = 0;
+    private int front = 0;
+    private int tail = 0;
 
     public MyLoopQueue(){
         this(5);
@@ -31,7 +29,8 @@ public class MyLoopQueue<T>  implements MyQueue<T>{
     public boolean isEmpty() {
         return size == 0;
     }
-
+    /** @noinspection unchecked*/
+    @SuppressWarnings({"unchecked"})
     @Override
     public T dequeue() {
         if (isEmpty()){
@@ -63,8 +62,8 @@ public class MyLoopQueue<T>  implements MyQueue<T>{
         front = 0;
         tail = size;
     }
-
     /** @noinspection unchecked*/
+
     @Override
     public T getFront() {
         if (isEmpty()){

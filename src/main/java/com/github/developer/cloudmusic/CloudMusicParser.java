@@ -1,16 +1,17 @@
 package com.github.developer.cloudmusic;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.utils.download.DownloadFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Zer01ne
@@ -34,6 +35,7 @@ public class CloudMusicParser {
      * @return java.util.List
      * @throws
      */
+    @SuppressWarnings({"unchecked"})
     public List<Map<String,Object>> parserSongId(String key, String type, String offset, String limit){
         StringBuilder stringBuilder = new StringBuilder();
         try {
