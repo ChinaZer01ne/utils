@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class Consumer {
 
     //指定namesrv地址
-    private static String NAMESRV_ADDRESS = "192.168.1.155:9876";
+    private static String NAMESRV_ADDRESS = "192.168.2.105:9876";
 
     public static void main(String[] args) throws MQClientException {
         //1. 创建DefaultMQPushConsumer

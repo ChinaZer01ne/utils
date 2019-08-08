@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Author: Zer01ne
  * @Date: 2019/2/21 17:26
@@ -27,4 +29,6 @@ public interface TransactionMapper {
 
     @Delete("delete from transaction where id = #{id}")
     int delete(Integer id);
+
+    List<Transaction> findAll();
 }

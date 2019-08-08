@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @JmsListener(destination = "customer:msg1:new",containerFactory = "msgFactory")
+    //@JmsListener(destination = "customer:msg1:new",containerFactory = "msgFactory")
     public void handle(String msg){
         log.info("Get msg: {}",msg);
         String reply = "Reply-" + msg;
@@ -55,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
      * 非注解的方式使用事务
      */
     @Override
-    @JmsListener(destination = "customer:msg2:new",containerFactory = "msgFactory")
+    //@JmsListener(destination = "customer:msg2:new",containerFactory = "msgFactory")
     public void handleInCode(String msg){
 
         DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
