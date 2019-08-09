@@ -6,11 +6,11 @@
 <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
 
 
-    <logger name="com.example" level="DEBUG"/>
+    <logger name="com.github" level="DEBUG"/>
 
     <logger name="com.atomikos" level="INFO"/>
     <logger name="org.springframework.transaction" level="DEBUG"/>
-    <logger name="org.springframework.jms" level="DEBUG"/>
+    <logger name="org.springframework.jms" level="INFO"/>
     <logger name="org.springframework.jdbc" level="DEBUG"/>
     <logger name="org.springframework.orm.jpa" level="DEBUG"/>
     <logger name="javax.transaction" level="DEBUG"/>
@@ -18,7 +18,7 @@
     <logger name="org.hibernate.jpa" level="DEBUG"/>
     <logger name="org.hibernate.SQL" level="DEBUG"/>
 
-    <logger name="org.apache.activemq" level="DEBUG"/>
+    <logger name="org.apache.activemq" level="INFO"/>
 
 
     <root level="INFO">

@@ -1,4 +1,4 @@
-package com.github.web.activemq.multi;
+package com.github.web.transaction.multi;
 
 /**
  * 多数据源的事务：MQ + 数据库

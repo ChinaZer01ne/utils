@@ -1,5 +1,6 @@
 package com.github.web.activemq;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,7 @@ public class JmsConfig {
      * 外部事务：使用JmsTransactionManager管理事务
      */
     @Bean
-    public PlatformTransactionManager transactionManager(ConnectionFactory connectionFactory){
+    public PlatformTransactionManager jmsTransactionManager(ConnectionFactory connectionFactory){
         return new JmsTransactionManager(connectionFactory);
     }
 
@@ -36,7 +37,7 @@ public class JmsConfig {
 
     @Bean
     public JmsListenerContainerFactory<?> msgFactory(ConnectionFactory connectionFactory,
-                                                     PlatformTransactionManager platformTransactionManager,
+                                                     @Qualifier("jmsTransactionManager") PlatformTransactionManager platformTransactionManager,
                                                      DefaultJmsListenerContainerFactoryConfigurer configurer){
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory,connectionFactory);

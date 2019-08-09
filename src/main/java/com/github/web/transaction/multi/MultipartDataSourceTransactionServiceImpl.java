@@ -1,6 +1,5 @@
-package com.github.web.activemq.multi;
+package com.github.web.transaction.multi;
 
-import com.github.web.activemq.multi.MultipartDataSourceTransactionService;
 import com.github.web.entity.Transaction;
 import com.github.web.mapper.TransactionMapper;
 import lombok.extern.slf4j.Slf4j;
