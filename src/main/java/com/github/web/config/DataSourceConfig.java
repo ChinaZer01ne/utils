@@ -2,7 +2,6 @@ package com.github.web.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,10 +14,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
 
 /**
  * @author Zer01ne
@@ -83,6 +80,33 @@ public class DataSourceConfig {
         ChainedTransactionManager chainedTransactionManager = new ChainedTransactionManager(userTM,orderTM);
         return chainedTransactionManager;
     }
+    /**
+     *
+     * JpaTransactionManager 和 DataSourceTransactionManager的链式事务
+     *
+     @Bean
+     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
+         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+         vendorAdapter.setGenerateDdl(false);
+
+         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+         factoryBean.setJpaVendorAdapter(vendorAdapter);
+         factoryBean.setDataSource(userDataSource());
+         factoryBean.setPackagesToScan("");
+         return factoryBean;
+     }
+     @Bean
+     @Primary
+     public PlatformTransactionManager userTansactionManager(){
+         JpaTransactionManager userTM = new JpaTransactionManager();
+         userTM.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+         PlatformTransactionManager orderTM = new DataSourceTransactionManager(orderDataSource());
+         //链式事务
+         ChainedTransactionManager chainedTransactionManager = new ChainedTransactionManager(userTM,orderTM);
+         return chainedTransactionManager;
+     }
+     * */
+
     /**
      * 多数据源配置需要指定以哪一个数据源构造模板
      * */

@@ -1,4 +1,4 @@
-package com.github.web.transaction.mysql.entity;
+package com.github.web.transaction.chain.entity;
 
 import lombok.Data;
 
