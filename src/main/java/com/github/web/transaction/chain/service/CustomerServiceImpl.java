@@ -1,6 +1,6 @@
-package com.github.web.transaction.mysql.service;
+package com.github.web.transaction.chain.service;
 
-import com.github.web.transaction.mysql.entity.Order;
+import com.github.web.transaction.chain.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
