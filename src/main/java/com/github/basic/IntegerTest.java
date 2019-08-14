@@ -56,5 +56,15 @@ public class IntegerTest {
         //自动装箱
         System.out.println(c == 200);
 
+        System.out.println("=========================");
+
+        //Integer m = 100;
+        int m = 100;
+        Integer q = Integer.valueOf(100);
+        Integer p = new Integer(100);
+        System.out.println(q == p);
+        System.out.println(m == p);
+
+        System.out.println(q.equals(100L));
     }
 }

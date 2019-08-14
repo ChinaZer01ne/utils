@@ -4,7 +4,6 @@ import com.github.web.transaction.chain.entity.Order;
 import com.github.web.transaction.chain.service.CustomerService;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jms.connection.JmsTransactionManager;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
