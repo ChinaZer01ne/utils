@@ -1,16 +1,19 @@
 package com.github.rocketmq.transaction;
 
-import io.netty.util.concurrent.DefaultThreadFactory;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.client.producer.*;
+import org.apache.rocketmq.client.producer.LocalTransactionState;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.TransactionListener;
+import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageExt;
-import org.apache.rocketmq.common.message.MessageQueue;
 
-import java.util.List;
 import java.util.concurrent.*;
 
 /**
+ * rocketmq 事务消息生产者
+ * 消费者和普通的一样
+ *
  * @author Zer01ne
  * @version 1.0
  * @date 2019/5/16 9:29
@@ -36,6 +39,10 @@ public class TransactionProducer {
              * */
             @Override
             public LocalTransactionState executeLocalTransaction(Message message, Object o) {
+
+                System.out.println("callArg : " + (String)o);
+                //数据库的落库操作
+
                 //事务ID
                 String transactionId = message.getTransactionId();
 
