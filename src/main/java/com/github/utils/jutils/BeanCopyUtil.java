@@ -1,9 +1,5 @@
 package com.github.utils.jutils;
 
-import com.github.design.prototype.Dog;
-import com.github.java8.stream.Student;
-
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -22,8 +18,18 @@ public class BeanCopyUtil {
 
 
     public static void copy(Object source, Object target){
+        copy(source,target,false);
+    }
 
-        Map<String,Object> cache = new HashMap<>();
+    public static void copyIgnoreNull(Object source, Object target){
+        copy(source,target,true);
+    }
+
+    private static void copy(Object source, Object target, boolean ignoreNull){
+        // FieldName : Method
+        Map<String,Object> sourceReadMap = new HashMap<>(16);
+        // FieldName : Method
+        Map<String,Object> targetWriteMap = new HashMap<>(16);
 
         try {
             Class<?> sourceClass = Class.forName(source.getClass().getName());
@@ -32,36 +38,46 @@ public class BeanCopyUtil {
             Method[] sourceClassDeclaredMethods = sourceClass.getDeclaredMethods();
             Method[] targetClassdDeclaredMethods = targetClass.getDeclaredMethods();
 
-            List<Method> get = Arrays.stream(sourceClassDeclaredMethods).filter(method -> method.getName().startsWith("set")).collect(Collectors.toList());
-            List<Method> set = Arrays.stream(targetClassdDeclaredMethods).filter(method -> method.getName().startsWith("get")).collect(Collectors.toList());
+            List<Method> getMethodList = Arrays.stream(sourceClassDeclaredMethods).filter(method -> method.getName().startsWith("get")).collect(Collectors.toList());
 
-            for (Method method : get) {
-                Object result = method.invoke(source);
-                cache.put(method.getName(),result);
+            for (Method method : getMethodList) {
+                sourceReadMap.put(method.getName().substring(3).toUpperCase(),method);
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+
+            List<Method> setMethodList = Arrays.stream(targetClassdDeclaredMethods).filter(method -> method.getName().startsWith("set")).collect(Collectors.toList());
+
+            for (Method method : setMethodList) {
+                targetWriteMap.put(method.getName().substring(3).toUpperCase(),method);
+            }
+
+            for (Map.Entry<String, Object> sourceFieldMethodMap : sourceReadMap.entrySet()) {
+                String sourceField = sourceFieldMethodMap.getKey();
+                Method sourceMethod = (Method) sourceFieldMethodMap.getValue();
+                sourceMethod.setAccessible(true);
+                Object result = sourceMethod.invoke(source);
+                // 忽略null属性
+                if (ignoreNull && result == null){
+                    continue;
+                }
+                for (Map.Entry<String, Object> targetFieldMethodMap : targetWriteMap.entrySet()) {
+                    String targetField = targetFieldMethodMap.getKey();
+                    if (targetField.equals(sourceField)){
+                        Method targetMethod = (Method) targetFieldMethodMap.getValue();
+                        targetMethod.setAccessible(true);
+                        targetMethod.invoke(target,result);
+                    }
+                }
+            }
+
+        } catch (IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void copyIgnoreNull(Object source, Object target){
-
-    }
-
-    private static void reflectField(Object o){
-
     }
 
     private BeanCopyUtil(){
 
     }
 
-    public static void main(String[] args) {
-        BeanCopyUtil.reflectField(new Student("ethan",1));
-    }
+
 }
