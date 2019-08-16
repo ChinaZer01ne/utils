@@ -36,7 +36,7 @@ public class BeanCopyUtil {
             Class<?> targetClass = Class.forName(target.getClass().getName());
 
             Method[] sourceClassDeclaredMethods = sourceClass.getDeclaredMethods();
-            Method[] targetClassdDeclaredMethods = targetClass.getDeclaredMethods();
+            Method[] targetClassDeclaredMethods = targetClass.getDeclaredMethods();
 
             List<Method> getMethodList = Arrays.stream(sourceClassDeclaredMethods).filter(method -> method.getName().startsWith("get")).collect(Collectors.toList());
 
@@ -45,7 +45,7 @@ public class BeanCopyUtil {
             }
 
 
-            List<Method> setMethodList = Arrays.stream(targetClassdDeclaredMethods).filter(method -> method.getName().startsWith("set")).collect(Collectors.toList());
+            List<Method> setMethodList = Arrays.stream(targetClassDeclaredMethods).filter(method -> method.getName().startsWith("set")).collect(Collectors.toList());
 
             for (Method method : setMethodList) {
                 targetWriteMap.put(method.getName().substring(3).toUpperCase(),method);
