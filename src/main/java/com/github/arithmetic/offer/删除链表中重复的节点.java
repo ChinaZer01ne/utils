@@ -54,16 +54,16 @@ public class 删除链表中重复的节点 {
         if (pHead == null || pHead.next == null){
             return pHead;
         }
-        //头指针
+        // 头指针
         ListNode tempHead = new ListNode(0);
-        //重复元素前一个指针，用来删除
+        // 重复元素前一个指针，用来删除
         ListNode preNode = tempHead;
-        //记录新链表的头结点
+        // 记录新链表的头结点
         tempHead.next = pHead;
 
         ListNode first = pHead;
         ListNode second = pHead.next;
-        //是否重复
+        // 是否重复
         boolean repeat = false;
 
         while (second != null){

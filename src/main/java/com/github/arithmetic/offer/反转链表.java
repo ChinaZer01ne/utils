@@ -57,7 +57,7 @@ public class 反转链表 {
         if (node != null){
             node.next = head;
         }else {
-            //当是null的时候刚好是为节点，保存为头节点
+            //当是null的时候刚好是尾节点，保存为头节点
             newNode = head;
         }
 

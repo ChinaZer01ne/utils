@@ -24,12 +24,18 @@ public class 变态跳台阶 {
      */
     public static int JumpFloorII(int target) {
 
+        // 基础case
         if (target <= 2){
             return target;
         }
 
+        // n-1级台阶的情况
         int sum = JumpFloorII(target - 1);
-
+        // 从n-1级台阶到n级台阶有1种，也就是有sum种
+        // 连续跳n-1级台阶到n级台阶有两种情况
+        // 从1到n-1，再跳一级
+        // 先跳一级，然后从2到n-1
+        // 所以是sum += sum
         sum += sum;
 
         return sum;

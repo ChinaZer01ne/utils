@@ -103,32 +103,6 @@ public class 之字形打印二叉树 {
      * */
     public ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
 
-        boolean leftToRight = false;
-
-        Queue<TreeNode> queue = new LinkedList<>();
-
-        queue.add(pRoot);
-
-
-
-        if (leftToRight){
-            if (pRoot.left != null) {
-                queue.add(pRoot.left);
-            }
-            if (pRoot.right != null){
-                queue.add(pRoot.right);
-            }
-            leftToRight = false;
-        }else {
-            if (pRoot.right != null){
-                queue.add(pRoot.right);
-            }
-            if (pRoot.left != null) {
-                queue.add(pRoot.left);
-            }
-            leftToRight = true;
-        }
-
 
 
         return null;

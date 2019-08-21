@@ -57,6 +57,7 @@ public class 二叉搜索树的后序遍历序列 {
                 return false;
             }
         }
+        // 左右子树继续
         return judge(sequence, l, i - 1) && (judge(sequence, i, r - 1));
     }
 

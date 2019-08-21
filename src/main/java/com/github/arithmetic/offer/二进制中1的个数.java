@@ -38,8 +38,35 @@ public class 二进制中1的个数 {
         }
 
         if (num < 0){
-            //32 - bitCount表示部位1的个数，当为负数的时候才会出现补位
+            //32 - bitCount表示补位1的个数，当为负数的时候才会出现补位
             count = count + (32 - bitCount);
+        }
+        return count;
+    }
+
+
+
+
+    // 类似掩码的思想
+    private static int NumberOf1_low(int n) {
+        int count = 0;
+        int flag = 1;
+        while (flag != 0) {
+            if ((n & flag) != 0) {
+                count++;
+            }
+            flag = flag << 1;
+        }
+        return count;
+    }
+
+    // 最优解
+    public static int NumberOf12(int n) {
+        int count = 0;
+        while (n != 0) {
+            ++count;
+            // 每经过一次此操作，最右边的1就会被变成0，有多少次操作就有多少个1
+            n = (n - 1) & n;
         }
         return count;
     }

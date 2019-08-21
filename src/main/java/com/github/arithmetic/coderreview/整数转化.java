@@ -25,6 +25,7 @@ public class 整数转化 {
 
         int count = 0;
         while (ab != 0){
+            // 说明末尾是1，是要改变的位
             if (ab % 2 == 1){
                 count++;
             }
