@@ -58,35 +58,26 @@ public class 合并两个排序的链表 {
     }
 
     /**
-     * 不使用额外空间能不能做？
+     * 递归
      *
      * 思路：TODO
      */
     public ListNode Merge2(ListNode list1,ListNode list2) {
 
-        //链表1的头节点
-        ListNode listHead1 = list1;
-        //链表2的头节点
-        ListNode listHead2 = list2;
 
-        //链表1的临时节点,记录断开位置
-        ListNode listTemp1 = list1;
-        //链表2的临时节点,记录断开位置
-        ListNode listTemp2 = list2;
-
-        while (listHead1 != null && listHead2 != null){
-            if (listHead1.val > listHead2.val){
-                listTemp2 = listTemp2.next;
-                //tempHead.next = new ListNode(listHead2.val);
-                //tempHead = tempHead.next;
-                listHead2 = listHead2.next;
-            }else {
-                //tempHead.next = new ListNode(listHead1.val);
-                //tempHead = tempHead.next;
-                listHead1 = listHead1.next;
-            }
+        if(list1 == null){
+            return list2;
         }
-        return null;
+        if(list2 == null){
+            return list1;
+        }
+        if(list1.val <= list2.val){
+            list1.next = Merge(list1.next, list2);
+            return list1;
+        }else{
+            list2.next = Merge(list1, list2.next);
+            return list2;
+        }
     }
 
 

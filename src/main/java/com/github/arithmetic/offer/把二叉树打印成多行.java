@@ -49,7 +49,10 @@ public class 把二叉树打印成多行 {
 
 
     }
-    /** 二叉树的层级遍历 */
+    /** 二叉树的层级遍历
+     *
+     * 用start和end变量表示每层的节点个数
+     * */
     public ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
 
 

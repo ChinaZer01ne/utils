@@ -16,7 +16,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2019/5/6 15:35
  */
-public class 数组中出现次数超过一半的数字 {
+public class    数组中出现次数超过一半的数字 {
 
 
 
@@ -35,8 +35,39 @@ public class 数组中出现次数超过一半的数字 {
      *     怎么这么牛逼呢？
      * */
     public int MoreThanHalfNum_Solution(int [] array) {
-        // TODO
-        return 0;
+
+            if(array==null||array.length<=0){
+                return 0;
+            }
+
+            int length=array.length;
+
+            int result=array[0];
+            int times=1;
+            for(int i=1;i<length;i++){
+                if(times==0){
+                    result=array[i];
+                    times=1;
+                }else{
+                    if(array[i]==result){
+                        times++;
+                    }else{
+                        times--;
+                    }
+                }
+            }
+
+            times=0;
+            for(int i=0;i<length;i++){
+                if(result==array[i]){
+                    times++;
+                }
+            }
+
+            if(times*2<length){
+                result=0;
+            }
+            return result;
     }
 
 

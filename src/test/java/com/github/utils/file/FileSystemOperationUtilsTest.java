@@ -11,17 +11,22 @@ import java.util.List;
  */
 public class FileSystemOperationUtilsTest {
     public static void main(String[] args) {
-        List<File> traversal = FileSystemOperationUtils.traversal("C:\\Users\\Ninee\\Desktop\\抖音合集56首.2018");
-
-        for (File file:
-             traversal) {
-            String name = file.getName();
-
-            int index = name.indexOf(".", name.indexOf(".") - 1 ) + 1;
-            System.out.println(index);
-            name = name.substring(index );
-            file.renameTo(new File(file.getPath().substring(0,file.getPath().lastIndexOf("/") + 1) + name));
-            System.out.println(name);
-        }
+        long start = System.currentTimeMillis();
+        //List<File> traversal = FileSystemOperationUtils.traversal("C:\\");
+        List<File> traversal = FileSystemOperationUtils.traversal2("C:\\");
+        //List<String> traversal = FileSystemOperationUtils.traversal3("C:\\");
+        long end = System.currentTimeMillis();
+        System.out.println(traversal.size());
+        System.out.println(end-start);
+        //for (File file:
+        //     traversal) {
+        //    String name = file.getName();
+        //
+        //    int index = name.indexOf(".", name.indexOf(".") - 1 ) + 1;
+        //    System.out.println(index);
+        //    name = name.substring(index );
+        //    file.renameTo(new File(file.getPath().substring(0,file.getPath().lastIndexOf("/") + 1) + name));
+        //    System.out.println(name);
+        //}
     }
 }

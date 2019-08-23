@@ -18,6 +18,11 @@ import java.util.Map;
  */
 public class 数组中只出现一次的数字 {
 
+    /**
+     *
+     * 位运算中异或的性质：两个相同数字异或=0，一个数和0异或还是它本身。
+     *
+     * */
     public static void main(String[] args) {
 
     }
@@ -59,5 +64,41 @@ public class 数组中只出现一次的数字 {
     //异或法 TODO
     public void FindNumsAppearOnce2(int [] array,int num1[] , int num2[]) {
 
+
+        int length = array.length;
+        if(length == 2){
+            num1[0] = array[0];
+            num2[0] = array[1];
+            return;
+        }
+        int bitResult = 0;
+        for(int i = 0; i < length; ++i){
+            bitResult ^= array[i];
+        }
+        int index = findFirst1(bitResult);
+        for(int i = 0; i < length; ++i){
+            // 剩余的两数一定会走不同的逻辑，因为之前找1，就说明在该位置，两数是不同的
+            // 相同的数也会分到一起，异或最后剩下的就是要找的
+            if(isBit1(array[i], index)){
+                num1[0] ^= array[i];
+            }else{
+                num2[0] ^= array[i];
+            }
+        }
+    }
+    /**
+     * 从右边数第一个1出现的位置
+     */
+    private int findFirst1(int bitResult){
+        int index = 0;
+        while(((bitResult & 1) == 0) && index < 32){
+            bitResult >>= 1;
+            index++;
+        }
+        return index;
+    }
+
+    private boolean isBit1(int target, int index){
+        return ((target >> index) & 1) == 1;
     }
 }

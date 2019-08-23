@@ -1,5 +1,7 @@
 package com.github.arithmetic.offer;
 
+import java.util.Arrays;
+
 /**
  * 左旋转字符串
  *
@@ -25,6 +27,7 @@ public class 左旋字符串 {
         //System.out.println(RotateString("def"));
         //System.out.println(LeftRotateString("abcdef",3));
         //System.out.println("abcdef".substring(0,"abcdef".length() - 1));
+
     }
     /**
      * 思路：YX = (X反Y反)反

@@ -22,7 +22,9 @@ public class 整数中1出现的次数 {
 
 
     /**
-     * 思路：
+     * 思路：链接：https://www.nowcoder.com/questionTerminal/bd7f978302044eee894445e244c7eee6
+     * 来源：牛客网
+     * 归纳总结
      */
     public static int NumberOf1Between1AndN_Solution(int n) {
 
