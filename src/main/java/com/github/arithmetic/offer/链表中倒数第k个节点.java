@@ -29,7 +29,7 @@ public class 链表中倒数第k个节点 {
     /**
      * 思路：1、先遍历链表求出长度length，然后从头开始走length-k步
      * 思路：2、递归的思想
-     * 思路：3、用两个指针，p1，p2，p1先走k-1步，然后共同走，p1到最后，p2就是倒数k位置
+     * 思路：3、用两个指针，p1，p2，p1先走k-1步（构造两指针间距为K），然后共同走，p1到最后，p2就是倒数k位置
      */
     private static int count = 0;
     private static ListNode targetNode = null;
