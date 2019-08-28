@@ -89,7 +89,7 @@ public class NioServer {
                 while (this.flag){
                     //清空缓冲区
                     buffer.clear();
-                    //从缓冲区中读取数据
+                    //从管道中读取数据
                     int readCount = 0;
 
                     readCount = this.channel.read(buffer);
