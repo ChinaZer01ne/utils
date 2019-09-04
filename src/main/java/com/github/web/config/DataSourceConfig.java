@@ -72,7 +72,7 @@ public class DataSourceConfig {
     /**
      * {@link com.github.web.activemq.JmsConfig},之前测试的时候配置过PlatformTransactionManager，所以得加这个注解 @Primary
      */
-    @Primary
+    //@Primary
     public PlatformTransactionManager userTansactionManager(){
         DataSourceTransactionManager userTM = new DataSourceTransactionManager(userDataSource());
         DataSourceTransactionManager orderTM = new DataSourceTransactionManager(orderDataSource());
@@ -80,6 +80,32 @@ public class DataSourceConfig {
         ChainedTransactionManager chainedTransactionManager = new ChainedTransactionManager(userTM,orderTM);
         return chainedTransactionManager;
     }
+    /**
+     * 测试分布式事务
+     * 事务的回滚需要相应的事务管理器
+    @Bean
+    public PlatformTransactionManager stockTansactionManager(){
+        return new DataSourceTransactionManager(userDataSource());
+
+    }
+    @Bean
+    public PlatformTransactionManager orderTansactionManager(){
+        return new DataSourceTransactionManager(orderDataSource());
+
+    }
+    @Bean
+    public PlatformTransactionManager testTansactionManager(){
+        return new DataSourceTransactionManager(dataSource());
+
+    }
+     * */
+    @Primary
+    @Bean
+    public PlatformTransactionManager testTansactionManager(){
+        return new DataSourceTransactionManager(dataSource());
+
+    }
+
     /**
      *
      * JpaTransactionManager 和 DataSourceTransactionManager的链式事务
