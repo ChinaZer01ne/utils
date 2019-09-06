@@ -16,11 +16,19 @@ public class ListAdd {
         add(7);
         printList(list);
 
+
+
+        //List<? extends Number> list = new ArrayList<>();
+        //Integer i = new Integer(1);
+        //list.add(i);
+
+
     }
 
     private static List<Integer> list = new ArrayList<>();
     private static int cur = 0;
     private static void add(Integer ele){
+
         if (list.size() < 5){
             list.add(ele);
         }else {
