@@ -2,21 +2,19 @@ package com.github;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -26,7 +24,7 @@ import java.util.Date;
  */
 @MapperScan("com.github.web.mapper")
 @EnableTransactionManagement
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com")
 @EnableScheduling
 public class GithubApplication {
     public static void main(String[] args) {

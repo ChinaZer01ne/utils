@@ -1,11 +1,13 @@
 package com.github.utils.file;
 
 
+import org.junit.Test;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @Author: Zer01ne
@@ -13,33 +15,83 @@ import java.util.concurrent.*;
  * @Version 1.0
  */
 public class FileSystemOperationUtilsTest {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+    //public static final String PATH = "/home/peach/GitProjects/notes/";
+    public static final String PATH = "/usr/";
+
+    @Test
+    public void singleThreadRecursive(){
         long start = System.currentTimeMillis();
-        //List<File> traversal = FileSystemOperationUtils.traversal("C:\\");
-
-        File file = new File("C:\\");
-        ExecutorService service = Executors.newFixedThreadPool(8);
-        List<File> fileList = Arrays.asList(file.listFiles());
-        List<File> result = new ArrayList<>();
-        CompletableFuture[] completableFutures = fileList.stream().map(file1 ->
-                CompletableFuture.supplyAsync(() ->
-                        FileSystemOperationUtils.traversal2(file1.getPath())).thenAccept(files -> {
-                    System.out.println("文件数量："+files.size());
-                    result.addAll(files);
-                })).toArray(CompletableFuture[]::new);
+        List<File> traversal = FileSystemOperationUtils.traversal(PATH);
         long end = System.currentTimeMillis();
-        System.out.println(end-start);
-        int size = 0;
-        for (CompletableFuture completableFuture : completableFutures) {
-            List<File> fileList1 = (List<File>) completableFuture.get();
-            size += fileList1.size();
-        }
-        System.out.println(size);
-        System.out.println(result.size());
-        long end2 = System.currentTimeMillis();
-        System.out.println(end2-start);
+        System.out.println("单线程递归，文件数量：" + traversal.size());
+        System.out.println("操作耗时： " + (end - start));
+    }
 
+    @Test
+    public void singleThreadBFS(){
+        long start = System.currentTimeMillis();
+        List<File> traversal = FileSystemOperationUtils.traversal2(PATH);
+        long end = System.currentTimeMillis();
+        System.out.println("单线程广度遍历，文件数量：" + traversal.size());
+        System.out.println("操作耗时： " + (end - start));
+    }
 
+    @Test
+    public void multiThreadBFS(){
+        long start = System.currentTimeMillis();
+        File targetFile = new File(PATH);
+        List<File> fileList = Arrays.asList(targetFile.listFiles());
+        List<File> result = new CopyOnWriteArrayList<>();
+
+        CompletableFuture[] completableFutures = fileList.stream().map(file ->
+                CompletableFuture.supplyAsync(() ->
+                        FileSystemOperationUtils.traversal2(file.getPath()))
+                        .whenComplete((files, throwable) -> {
+                            System.out.println("扫描到的文件数量： " + files.size());
+                            result.addAll(files);
+                        })
+                        //.thenAccept(files -> {
+                        //    result.addAll(files);
+                        //})
+        ).toArray(CompletableFuture[]::new);
+
+        CompletableFuture.allOf(completableFutures).join();
+        long end = System.currentTimeMillis();
+
+        System.out.println("多线程广度遍历，文件数量：" + result.size());
+        System.out.println("操作耗时： " + (end - start));
+
+    }
+
+    @Test
+    public void multiThreadRecursive(){
+        long start = System.currentTimeMillis();
+        File targetFile = new File(PATH);
+        List<File> fileList = Arrays.asList(targetFile.listFiles());
+        List<File> result = new CopyOnWriteArrayList<>();
+
+        CompletableFuture[] completableFutures = fileList.stream().map(file ->
+                        CompletableFuture.supplyAsync(() ->
+                                FileSystemOperationUtils.traversal(file.getPath()))
+                                .whenComplete((files, throwable) -> {
+                                    System.out.println("扫描到的文件数量： " + files.size());
+                                    result.addAll(files);
+                                })
+                //.thenAccept(files -> {
+                //    result.addAll(files);
+                //})
+        ).toArray(CompletableFuture[]::new);
+
+        CompletableFuture.allOf(completableFutures).join();
+        long end = System.currentTimeMillis();
+
+        System.out.println("多线程递归遍历，文件数量：" + result.size());
+        System.out.println("操作耗时： " + (end - start));
+
+    }
+
+    public static void main(String[] args) {
         //List<File> traversal = FileSystemOperationUtils.traversal2("C:\\");
         //List<String> traversal = FileSystemOperationUtils.traversal3("C:\\");
         //long end = System.currentTimeMillis();
