@@ -1,4 +1,4 @@
-package com.github.Reconstruction.movie;
+package com.github.reconstruction.movie;
 
 public class Rental {
     private Movie _movie;
