@@ -13,7 +13,7 @@ public class Movie {
         _priceCode = priceCode;
     }
 
-    public String get_title() {
+    public String getTitle() {
         return _title;
     }
 

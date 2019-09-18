@@ -20,30 +20,54 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
-
-            // add grequent renter points
-            frequentRenterPoints++;
-            // add bonus for a two day new release rental
-            if ((each.getMovie().get_priceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) {
-                frequentRenterPoints++;
-            }
-
             // show fingures for this rental
-            result += "\t" + each.getMovie().get_title() + "\t" + String.valueOf(each.getCharge()) + "\n";
-            totalAmount += each.getCharge();
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
         }
 
         // add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
+        result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
+        result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " frequent renter points";
         return result;
     }
 
+    public String htmlStatement() {
+        Enumeration<Rental> rentalEnumeration = _rentals.elements();
+        String result = "<h1>Rental Records for " + getName() + "</h1>\n";
+        result += "<table border='1'><tr><td>Movie Name</td><td>Charge</tr>\n";
+        while (rentalEnumeration.hasMoreElements()) {
+            Rental each = rentalEnumeration.nextElement();
+            // show figures for this rental
+            result += "\t<tr><td>" + each.getMovie().getTitle() + "</td><td>" + each.getCharge() + "</td></tr>\n";
+        }
 
+        // add footer lines
+        result += "\t<tr><td colspan='2'>Total Charge:" + getTotalCharge() + "</td></tr>\n";
+        result += "\t<tr><td colspan='2'>Total Pointers:" + getTotalFrequentRenterPoints() + "</td></tr>\n";
+        result += "</table>";
+        return result;
+    }
+
+    private double getTotalCharge(){
+        double result = 0;
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getCharge();
+        }
+        return result;
+    }
+
+    private double getTotalFrequentRenterPoints(){
+        int result = 0;
+        Enumeration rentals = _rentals.elements();
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            result += each.getFrequentRenterPoints();
+        }
+        return result;
+    }
 }
