@@ -13,7 +13,12 @@ import java.util.List;
 public class ListOperation {
     public static void main(String[] args) {
         //test();
-        test2();
+        //test2();
+
+        List list = new ArrayList();
+        list.add(null);
+        System.out.println(list.size());
+        list.forEach(System.out::println);
     }
 
     private static void test2(){

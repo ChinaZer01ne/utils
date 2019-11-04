@@ -3,10 +3,14 @@ package com.github.web.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.github.web.interceptor.ParameterInterceptor;
+import com.github.web.interceptor.ParameterResolver;
 import com.github.web.interceptor.PersonInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -24,6 +28,13 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Autowired
+    private ParameterResolver parameterResolver;
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(parameterResolver);
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.setOrder(0).addResourceHandler("/**").addResourceLocations("classpath:/templates/");
@@ -33,6 +44,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PersonInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new ParameterInterceptor()).addPathPatterns("/**");
     }
 
     @Override
