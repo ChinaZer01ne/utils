@@ -24,4 +24,12 @@ public class TestController {
         System.out.println(entity.getUserId());
         return "ok， groupId = " + entity.getGroupId() + ", companyId = " + entity.getCompanyId() + ", userId = " + entity.getUserId();
     }
+
+    @PostMapping("test2")
+    public String test(ParameterEntity entity){
+        System.out.println(entity.getSex());
+        System.out.println(entity.getAge());
+
+        return "ok， sex = " + entity.getSex() + "age = " + entity.getAge();
+    }
 }

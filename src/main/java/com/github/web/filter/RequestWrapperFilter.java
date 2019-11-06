@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.util.Map;
 
 @Component
-@WebFilter(urlPatterns={"/*"})
+//@WebFilter(urlPatterns={"/*"})
 public class RequestWrapperFilter implements Filter {
 
     private static final String FORM_SUBMIT = "application/x-www-form-urlencoded";
