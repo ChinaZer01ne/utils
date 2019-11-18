@@ -1,5 +1,7 @@
 package com.github.web.config;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -28,11 +30,12 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private ParameterResolver parameterResolver;
+    //@Autowired
+    //private ParameterResolver parameterResolver;
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(parameterResolver);
+
+        resolvers.add(new ParameterResolver());
     }
 
     @Override
@@ -44,7 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PersonInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(new ParameterInterceptor()).addPathPatterns("/**");
+        //registry.addInterceptor(new ParameterInterceptor()).addPathPatterns("/**");
     }
 
     @Override

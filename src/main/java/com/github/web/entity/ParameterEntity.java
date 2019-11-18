@@ -66,4 +66,17 @@ public class ParameterEntity {
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
+
+    @Override
+    public String toString() {
+        return "ParameterEntity{" +
+                "groupId=" + groupId +
+                ", userId=" + userId +
+                ", companyId=" + companyId +
+                ", userAccount='" + userAccount + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                '}';
+    }
 }
